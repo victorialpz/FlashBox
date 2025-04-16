@@ -7,8 +7,8 @@
 			"name": "derbyDB 2",
 			"save-password": true,
 			"configuration": {
-				"database": "C:\\Users\\lopez\\Desktop\\wsRecuISO\\FlashBox\\derbyDB",
-				"url": "jdbc:derby:C:\\Users\\lopez\\Desktop\\wsRecuISO\\FlashBox\\derbyDB",
+				"database": "C:\\Users\\lopez\\git\\FB\\FB\\derbyDB",
+				"url": "jdbc:derby:C:\\Users\\lopez\\git\\FB\\FB\\derbyDB",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": true,
