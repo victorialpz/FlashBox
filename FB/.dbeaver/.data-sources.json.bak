@@ -1,10 +1,10 @@
 {
 	"folders": {},
 	"connections": {
-		"derby-19614ad6b42-7a38afa378304fc8": {
+		"derby-1961b9ff9fb-8d4071e6e656fb6": {
 			"provider": "generic",
 			"driver": "derby",
-			"name": "derbyDB",
+			"name": "derbyDB 2",
 			"save-password": true,
 			"configuration": {
 				"database": "C:\\Users\\lopez\\Desktop\\wsRecuISO\\FlashBox\\derbyDB",
@@ -15,14 +15,14 @@
 				"auth-model": "native"
 			}
 		},
-		"derby-1961a6bba5b-21d25f4719495f96": {
+		"derby-1964009c45d-48838c59c9489972": {
 			"provider": "generic",
 			"driver": "derby",
-			"name": "FlashBox",
+			"name": "wsRecuISO",
 			"save-password": true,
 			"configuration": {
-				"database": "C:\\Users\\Lola\\Desktop\\FlashBox",
-				"url": "jdbc:derby:C:\\Users\\Lola\\Desktop\\FlashBox",
+				"database": "C:\\Users\\lopez\\Desktop\\wsRecuISO",
+				"url": "jdbc:derby:C:\\Users\\lopez\\Desktop\\wsRecuISO",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": true,
