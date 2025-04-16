@@ -1,29 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Inicio - FlashBox</title>
     <meta charset="UTF-8">
+    <title>Inicio - FlashBox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1em;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ccc;
+        }
+        .perfil {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .perfil-icono {
+            font-size: 1.5em;
+        }
+        .favoritos {
+            font-size: 1.5em;
+        }
+        .restaurantes {
+            padding: 1em;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 0.5em 0;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenido a FlashBox</h1>
 
+<!-- BARRA SUPERIOR -->
+<div class="topbar" th:if="${session.usuario != null}">
+    <div class="perfil">
+        <span class="perfil-icono">👤</span>
+        <span th:text="${session.usuario.nombre}">Usuario</span>
+    </div>
+    <div>
+        <a href="/cliente/favoritos" class="favoritos" title="Ver favoritos">⭐</a>
+        <a href="/logout" title="Cerrar sesión">🚪</a>
+    </div>
+</div>
+
+<!-- BARRA DE INVITADO -->
+<div class="topbar" th:if="${session.usuario == null}">
     <div>
         <a href="/registro">Registrarse</a> |
-        <a href="/login">Iniciar Sesión</a>
+        <a href="/login">Iniciar sesión</a>
     </div>
+</div>
 
+<!-- LISTA DE RESTAURANTES -->
+<div class="restaurantes">
     <h2>Restaurantes disponibles</h2>
     <ul>
         <li th:each="restaurante : ${restaurantes}">
             <strong th:text="${restaurante.nombre}"></strong><br/>
-         
-            <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Ver Menú</a>
-			<form th:action="@{/cliente/favoritos/agregar}" method="post">
-			  <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
-			  <button type="submit">⭐ Favorito</button>
-			</form>
-
+            <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Ver menú</a>
+            <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
+                <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
+                <button type="submit">⭐ Favorito</button>
+            </form>
         </li>
     </ul>
+</div>
+
 </body>
 </html>

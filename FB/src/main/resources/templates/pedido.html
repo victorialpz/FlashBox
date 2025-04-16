@@ -7,10 +7,16 @@
 <body>
     <h1>Bienvenido a FlashBox</h1>
 
-    <div>
-        <a href="/registro">Registrarse</a> |
-        <a href="/login">Iniciar Sesión</a>
-    </div>
+	<div th:if="${session.usuario != null}">
+	    <span>Bienvenido, <strong th:text="${session.usuario.nombre}">Usuario</strong></span>
+	    |
+	    <a href="/logout">Cerrar sesión</a>
+	</div>
+	<div th:if="${session.usuario == null}">
+	    <a href="/registro">Registrarse</a> |
+	    <a href="/login">Iniciar Sesión</a>
+	</div>
+
 
     <h2>Restaurantes disponibles</h2>
     <ul>

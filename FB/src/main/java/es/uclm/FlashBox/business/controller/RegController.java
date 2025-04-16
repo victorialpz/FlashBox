@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import es.uclm.FlashBox.business.Services.UsuarioService;
 
 @Controller
 public class RegController {
@@ -27,6 +28,8 @@ public class RegController {
 
 	@Autowired
 	private RestauranteDAO restauranteDAO;
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@GetMapping("/registro")
 	public String mostrarRegistro(Model model) {
@@ -87,19 +90,27 @@ public class RegController {
 	}
 
 	@PostMapping("/login")
-	public String procesarLogin(@RequestParam String username, @RequestParam String password, Model model) {
-		Usuario usuario = usuarioDAO.findByUsernameAndPassword(username, password);
-		
+	public String procesarLogin(@RequestParam("username") String username, @RequestParam("password") String password,
+			HttpSession session, Model model) {
+
+		Usuario usuario = usuarioService.autenticar(username, password);
+
 		if (usuario != null) {
-			if (usuario.getRol() == Rol.RESTAURANTE) {
-				return "redirect:/restaurante/carta"; // Redirige a la página de añadir carta
-			} else {
-				return "redirect:/"; // Redirige a la página principal para otros roles
-			}
+			session.setAttribute("usuario", usuario);
+			return switch (usuario.getRol()) {
+			case RESTAURANTE -> "redirect:/restaurante/carta";
+			case CLIENTE -> "redirect:/inicio";
+			case REPARTIDOR -> "redirect:/repartidor/entregas";
+			};
 		} else {
 			model.addAttribute("error", "Credenciales incorrectas");
-			return "login"; // Vuelve a la página de login con un mensaje de error
+			return "login";
 		}
 	}
-	
+	@GetMapping("/logout")
+	public String cerrarSesion(HttpSession session) {
+		session.invalidate();
+		return "redirect:/login";
+	}
+
 }
