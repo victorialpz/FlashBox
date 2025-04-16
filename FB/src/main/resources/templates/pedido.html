@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inicio - FlashBox</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Bienvenido a FlashBox</h1>
+
+    <div>
+        <a href="/registro">Registrarse</a> |
+        <a href="/login">Iniciar Sesión</a>
+    </div>
+
+    <h2>Restaurantes disponibles</h2>
+    <ul>
+        <li th:each="restaurante : ${restaurantes}">
+            <strong th:text="${restaurante.nombre}"></strong><br/>
+            <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Ver Menú</a>
+            <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
+                <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
+                <button type="submit">⭐ Favorito</button>
+            </form>
+        </li>
+    </ul>
+</body>
+</html>

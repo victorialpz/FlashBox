@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Item del Menú</title>
+</head>
+<body>
+<h1>Editar Item del Menú</h1>
+<form th:action="@{'/restaurante/menu/' + ${restaurante.id} + '/editar/' + ${itemMenu.id}}" th:object="${itemMenu}" method="post">
+    <label>Nombre:</label>
+    <input type="text" th:field="*{nombre}" required/><br/>
+
+    <label>Precio:</label>
+    <input type="number" step="0.01" th:field="*{precio}" required/><br/>
+
+    <label>Tipo:</label>
+    <select th:field="*{tipo}">
+        <option value="COMIDA">Comida</option>
+        <option value="BEBIDA">Bebida</option>
+        <option value="POSTRE">Postre</option>
+    </select><br/>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+<a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Volver</a>
+</body>
+</html>
