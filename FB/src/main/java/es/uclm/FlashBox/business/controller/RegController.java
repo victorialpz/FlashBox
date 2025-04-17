@@ -38,7 +38,8 @@ public class RegController {
 	}
 
 	@PostMapping("/registro")
-	public String registrarUsuario(@ModelAttribute Usuario usuario) {
+	public String registrarUsuario(@ModelAttribute Usuario usuario,
+			@RequestParam(required = false) String tipoRestaurante) {
 		usuarioDAO.save(usuario);
 
 		switch (usuario.getRol()) {
@@ -51,7 +52,8 @@ public class RegController {
 			restaurante.setTelefono(usuario.getTelefono());
 			restaurante.setDireccion("Dirección pendiente");
 			restaurante.setCartaMenu(carta);
-			restaurante.setUsuario(usuario); // 🔗 relación
+			restaurante.setUsuario(usuario);
+			restaurante.setTipo(tipoRestaurante); // 🔗 relación
 			usuario.setRestaurante(restaurante); // 🔁
 
 			restauranteDAO.save(restaurante);
@@ -107,6 +109,7 @@ public class RegController {
 			return "login";
 		}
 	}
+
 	@GetMapping("/logout")
 	public String cerrarSesion(HttpSession session) {
 		session.invalidate();

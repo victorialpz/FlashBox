@@ -29,6 +29,7 @@ public class Restaurante {
 	@ManyToMany
 	private List<Restaurante> favoritos;
 
+	private String tipo;
 
 	public Long getId() {
 		return id;
@@ -79,6 +80,14 @@ public class Restaurante {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

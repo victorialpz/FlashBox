@@ -1,11 +1,13 @@
 package es.uclm.FlashBox.business.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.uclm.FlashBox.business.entity.Restaurante;
 import es.uclm.FlashBox.business.entity.Usuario;
@@ -20,9 +22,15 @@ public class HomeController {
 	private RestauranteDAO restauranteDAO;
 
 	@GetMapping({ "/", "/home" })
-	public String mostrarInicio(Model model) {
-		List<Restaurante> restaurantes = restauranteDAO.findAll();
+	public String mostrarInicio(@RequestParam(required = false) String categoria, Model model) {
+		List<Restaurante> restaurantes = (categoria == null) ? restauranteDAO.findAll()
+				: restauranteDAO.findByTipo(categoria);
+
+		List<String> categorias = restauranteDAO.findAll().stream().map(Restaurante::getTipo).filter(Objects::nonNull)
+				.distinct().toList();
+
 		model.addAttribute("restaurantes", restaurantes);
+		model.addAttribute("categorias", categorias);
 		return "home";
 	}
 
@@ -38,5 +46,4 @@ public class HomeController {
 		model.addAttribute("restaurantes", restaurantes);
 		return "home";
 	}
-
 }
