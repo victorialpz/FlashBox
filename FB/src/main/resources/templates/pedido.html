@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link th:href="@{/css/styles.css}" rel="stylesheet"/>
 <head>
-    <title>Inicio - FlashBox</title>
     <meta charset="UTF-8">
+    <title>Pedidos - FlashBox</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-    <h1>Bienvenido a FlashBox</h1>
+<div class="container">
+    <h1>🛍️ Bienvenido a FlashBox</h1>
 
-	<div th:if="${session.usuario != null}">
-	    <span>Bienvenido, <strong th:text="${session.usuario.nombre}">Usuario</strong></span>
-	    |
-	    <a href="/logout">Cerrar sesión</a>
-	</div>
-	<div th:if="${session.usuario == null}">
-	    <a href="/registro">Registrarse</a> |
-	    <a href="/login">Iniciar Sesión</a>
-	</div>
+    <div th:if="${session.usuario != null}" class="topbar">
+        <span>Hola, <strong th:text="${session.usuario.nombre}">Usuario</strong></span>
+        <a href="/logout" class="btn delete-btn">🚪 Cerrar sesión</a>
+    </div>
 
+    <div th:if="${session.usuario == null}" class="topbar">
+        <a href="/registro" class="btn edit-btn">📝 Registrarse</a>
+        <a href="/login" class="btn submit-btn">🔐 Iniciar sesión</a>
+    </div>
 
-    <h2>Restaurantes disponibles</h2>
-    <ul>
-        <li th:each="restaurante : ${restaurantes}">
+    <h2>🍴 Restaurantes disponibles</h2>
+    <ul class="menu-list">
+        <li th:each="restaurante : ${restaurantes}" class="menu-item">
             <strong th:text="${restaurante.nombre}"></strong><br/>
-            <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Ver Menú</a>
+            <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}" class="btn edit-btn">📋 Ver Menú</a>
             <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
                 <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
-                <button type="submit">⭐ Favorito</button>
+                <button type="submit" class="btn submit-btn">⭐ Favorito</button>
             </form>
         </li>
     </ul>
+</div>
 </body>
 </html>

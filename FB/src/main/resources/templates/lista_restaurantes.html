@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Restaurantes</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-    <h1>Restaurantes</h1>
-    <ul>
-        <li th:each="restaurante : ${restaurantes}">
-            <span th:text="${restaurante.nombre}">Nombre Restaurante</span>
-            - <span th:text="${restaurante.direccion}">Dirección</span>
+<div class="container">
+    <h1>🍽️ Restaurantes</h1>
+
+    <ul class="menu-list">
+        <li th:each="restaurante : ${restaurantes}" class="menu-item">
+            <span th:text="${restaurante.nombre}" class="item-nombre">Nombre Restaurante</span> - 
+            <span th:text="${restaurante.direccion}" class="item-tipo">Dirección</span>
+
+            <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
+                <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
+                <button type="submit" class="btn submit-btn">⭐ Favorito</button>
+            </form>
         </li>
     </ul>
-    <a href="/registro">Registrarse</a> | <a href="/login">Iniciar Sesión</a>
-	<form th:action="@{/cliente/favoritos/agregar}" method="post">
-	  <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
-	  <button type="submit">⭐ Favorito</button>
-	</form>
 
+    <div style="margin-top: 1.5em; text-align: center;">
+        <a href="/registro" class="btn edit-btn">📝 Registrarse</a>
+        <a href="/login" class="btn submit-btn">🔐 Iniciar sesión</a>
+    </div>
+</div>
 </body>
 </html>

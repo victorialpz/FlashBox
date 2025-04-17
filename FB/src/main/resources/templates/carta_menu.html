@@ -1,23 +1,36 @@
-<h1>Menú del Restaurante</h1>
-<ul>
-	<li th:each="item : ${items}">
-	    <span th:text="${item.nombre}"/> -
-	    <span th:text="${item.tipo}"/> -
-	    <span th:text="${item.precio}"/> €
-	    <a th:href="@{'/restaurante/menu/' + ${restaurante.id} + '/editar/' + ${item.id}}">Editar</a> |
-	    <a th:href="@{'/restaurante/menu/' + ${restaurante.id} + '/eliminar/' + ${item.id}}">Eliminar</a>
-	</li>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link th:href="@{/css/styles.css}" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Menú del Restaurante</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>🍽️ Menú del Restaurante</h1>
 
-</ul>
+    <ul class="menu-list">
+        <li th:each="item : ${items}" class="menu-item">
+            <span class="item-nombre" th:text="${item.nombre}"></span> -
+            <span class="item-tipo" th:text="${item.tipo}"></span> -
+            <span class="item-precio" th:text="${item.precio}"></span> €
+            <a th:href="@{'/restaurante/menu/' + ${restaurante.id} + '/editar/' + ${item.id}}" class="btn edit-btn">✏️ Editar</a>
+            <a th:href="@{'/restaurante/menu/' + ${restaurante.id} + '/eliminar/' + ${item.id}}" class="btn delete-btn">🗑️ Eliminar</a>
+        </li>
+    </ul>
 
-<h2>Agregar Item</h2>
-<form th:action="@{/restaurante/menu/{id}/agregar(id=${restaurante.id})}" method="post" th:object="${itemMenu}">
-    <input type="text" th:field="*{nombre}" placeholder="Nombre"/>
-    <input type="number" th:field="*{precio}" placeholder="Precio"/>
-    <select th:field="*{tipo}">
-        <option value="COMIDA">Comida</option>
-        <option value="BEBIDA">Bebida</option>
-        <option value="POSTRE">Postre</option>
-    </select>
-    <button type="submit">Agregar</button>
-</form>
+    <h2>➕ Agregar Ítem</h2>
+    <form th:action="@{/restaurante/menu/{id}/agregar(id=${restaurante.id})}" method="post" th:object="${itemMenu}" class="form">
+        <input type="text" th:field="*{nombre}" placeholder="Nombre del plato" class="form-input" />
+        <input type="number" th:field="*{precio}" placeholder="Precio (€)" class="form-input" />
+        <select th:field="*{tipo}" class="form-select">
+            <option value="COMIDA">Comida</option>
+            <option value="BEBIDA">Bebida</option>
+            <option value="POSTRE">Postre</option>
+        </select>
+        <button type="submit" class="btn submit-btn">✅ Agregar</button>
+    </form>
+</div>
+</body>
+</html>

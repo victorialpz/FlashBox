@@ -1,0 +1,108 @@
+/* ---------- FUENTE Y COLORES ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root{
+    --primary:#ff7b2e;          /* naranja apetitoso */
+    --primary-dark:#e56718;
+    --bg:#fff8f2;               /* fondo cálido */
+    --surface:#ffffff;
+    --text:#333;
+    --grey:#e0e0e0;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+    margin:0;padding:0;
+    font-family:'Poppins',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+/* ---------- CONTENEDOR ---------- */
+.container{
+    max-width:900px;
+    margin:2rem auto;
+    padding:2rem;
+    background:var(--surface);
+    border-radius:16px;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+/* ---------- TITULOS ---------- */
+h1,h2{margin-top:0;text-align:center;color:var(--primary-dark);}
+h1{margin-bottom:1.5rem}
+
+/* ---------- TOPBAR ---------- */
+.topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:2rem;
+}
+.icon-group{display:flex;gap:.75rem;align-items:center;}
+/* hamburger */
+.hamburger{
+    background:none;border:2px solid var(--primary);color:var(--primary);
+    border-radius:8px;font-size:1.2rem;cursor:pointer;padding:.35rem .55rem;
+}
+/* desplegable */
+.dropdown{position:relative;}
+.dropdown-content{
+    display:none;flex-direction:column;
+    position:absolute;right:0;top:110%;
+    background:var(--surface);border:1px solid var(--grey);
+    border-radius:12px;box-shadow:0 6px 14px rgba(0,0,0,.1);
+    overflow:hidden;min-width:180px;z-index:99;
+}
+.dropdown-content a{
+    padding:.8rem 1rem;text-decoration:none;color:var(--text);
+}
+.dropdown-content a:hover{background:#fff3eb;}
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content{display:flex;}
+
+/* ---------- BOTONES ---------- */
+.btn{
+    display:inline-block;border:none;cursor:pointer;
+    font-weight:600;font-size:.9rem;text-decoration:none;
+    padding:.55rem 1.1rem;border-radius:10px;
+    transition:.15s background-color,.1s transform;
+}
+.btn:hover{transform:translateY(-2px);}
+.submit-btn{background:var(--primary);color:#fff;}
+.submit-btn:hover{background:var(--primary-dark);}
+.edit-btn{background:#3b82f6;color:#fff;}
+.edit-btn:hover{background:#2563eb;}
+.delete-btn{background:#ef4444;color:#fff;}
+.delete-btn:hover{background:#d63031;}
+
+/* ---------- LISTA RESTAURANTES ---------- */
+ul.menu-list{list-style:none;margin:0;padding:0}
+.menu-item{
+    background:#fff3eb;margin-bottom:1rem;padding:1rem;
+    border-left:6px solid var(--primary-dark);
+    border-radius:12px;display:flex;flex-wrap:wrap;gap:1rem;
+    justify-content:space-between;align-items:center;
+}
+.menu-item strong{font-size:1.05rem}
+
+/* ---------- FORMULARIOS ---------- */
+.form{display:flex;flex-direction:column;gap:1rem;margin-top:1rem}
+.form-input,.form-select{
+    padding:.75rem;border:1px solid var(--grey);
+    border-radius:10px;font-size:1rem;
+}
+.form-input:focus,.form-select:focus{border-color:var(--primary);outline:none}
+
+/* FORM vertical (registro / login) */
+.form-vertical .form-group{display:flex;flex-direction:column;gap:.4rem}
+
+/* ---------- TABLA ENTREGAS ---------- */
+.styled-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem;}
+.styled-table th,.styled-table td{padding:.8rem;border-bottom:1px solid #f0f0f0;text-align:left;}
+.styled-table th{background:#fff3eb;font-weight:600}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:640px){
+    .menu-item{flex-direction:column;align-items:flex-start;}
+    .topbar{flex-direction:column;gap:1rem;align-items:flex-start;}
+}

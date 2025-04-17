@@ -1,41 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Registro</title>
-</head>
+<link th:href="@{/css/styles.css}" rel="stylesheet"/>
 <body>
-    <h1>Registro de Usuario</h1>
-    <form th:action="@{/registro}" th:object="${usuario}" method="post">
+<div class="container">
+    <h1>📝 Registro de Usuario</h1>
 
-        <label>Nombre:</label>
-        <input type="text" th:field="*{nombre}" required /><br/>
+    <form th:action="@{/registro}" th:object="${usuario}" method="post"
+          class="form form-vertical">
 
-        <label>Apellidos:</label>
-        <input type="text" th:field="*{apellidos}" required /><br/>
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}" class="form-input" required>
+        </div>
 
-        <label>Correo electrónico:</label>
-        <input type="email" th:field="*{correo}" required /><br/>
+        <div class="form-group">
+            <label>Apellidos:</label>
+            <input type="text" th:field="*{apellidos}" class="form-input" required>
+        </div>
 
-        <label>Teléfono móvil:</label>
-        <input type="tel" th:field="*{telefono}" required /><br/>
+        <div class="form-group">
+            <label>Correo electrónico:</label>
+            <input type="email" th:field="*{correo}" class="form-input" required>
+        </div>
 
-        <label>Nombre de usuario:</label>
-        <input type="text" th:field="*{username}" required /><br/>
+        <div class="form-group">
+            <label>Teléfono móvil:</label>
+            <input type="tel" th:field="*{telefono}" class="form-input" required>
+        </div>
 
-        <label>Contraseña:</label>
-        <input type="password" th:field="*{password}" required /><br/>
+        <div class="form-group">
+            <label>Nombre de usuario:</label>
+            <input type="text" th:field="*{username}" class="form-input" required>
+        </div>
 
-        <label>Rol:</label>
-        <select th:field="*{rol}" required>
-            <option value="CLIENTE">Cliente</option>
-            <option value="RESTAURANTE">Restaurante</option>
-            <option value="REPARTIDOR">Repartidor</option>
-        </select><br/>
+        <div class="form-group">
+            <label>Contraseña:</label>
+            <input type="password" th:field="*{password}" class="form-input" required>
+        </div>
 
-        <button type="submit">Registrarse</button>
+        <div class="form-group">
+            <label>Rol:</label>
+            <select th:field="*{rol}" class="form-select" required>
+                <option value="CLIENTE">Cliente</option>
+                <option value="RESTAURANTE">Restaurante</option>
+                <option value="REPARTIDOR">Repartidor</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn submit-btn">✅ Registrarse</button>
     </form>
 
-    <a href="/login">¿Ya tienes cuenta? Inicia sesión</a>
+    <div style="text-align:center;margin-top:1.2rem;">
+        <a href="/login" class="btn edit-btn">¿Ya tienes cuenta? Inicia sesión</a>
+    </div>
+</div>
 </body>
-</html>
