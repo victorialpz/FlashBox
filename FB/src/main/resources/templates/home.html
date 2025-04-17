@@ -1,23 +1,190 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link th:href="@{/css/styles.css}" rel="stylesheet"/>
 <head>
     <meta charset="UTF-8">
-    <title>FlashBox</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <title>FlashBox – Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: #1e1e1e;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        h1.logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff7b2e;
+            margin: 0;
+        }
+
+        h2 {
+            color: #ff7b2e;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ----------- TOPBAR ----------- */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-btn,
+        .hamburger {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            padding: 0.2rem 0.6rem;
+        }
+
+        .btn {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            background: #ff7b2e;
+            color: white;
+        }
+
+        .edit-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            right: 0;
+            top: 130%;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+            min-width: 180px;
+            z-index: 99;
+            overflow: hidden;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-content a,
+        .dropdown-content span {
+            padding: 0.8rem 1.2rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            display: block;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown:hover .dropdown-content,
+        .dropdown:focus-within .dropdown-content {
+            display: flex;
+        }
+
+        /* ----------- RESTAURANTES ----------- */
+        ul.menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-item {
+            background-color: #2a2a2a;
+            border-left: 6px solid #e56718;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .menu-item strong {
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        @media(max-width: 768px) {
+            .menu-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .topbar {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .topbar-right {
+                justify-content: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="container">
 
-    <!-- TOPBAR ------------------------------------------------------>
+    <!-- TOPBAR -->
     <div class="topbar">
-        <h1 class="logo">FlashBox</h1>
 
-        <!-- “margin‑left:auto” empuja este bloque a la derecha -->
-        <div class="icon-group" style="margin-left:auto;">
+        <!-- Izquierda: Logo + categorías -->
+        <div class="topbar-left">
+            <h1 class="logo">FlashBox</h1>
 
-            <!-- Dropdown ☰ de categorías -->
+            <!-- Categorías -->
             <div class="dropdown">
                 <button class="hamburger" aria-label="Categorías">☰</button>
                 <div class="dropdown-content">
@@ -26,33 +193,42 @@
                        th:text="${cat}">Cat</a>
                 </div>
             </div>
+        </div>
 
-            <!-- Favoritos solo si está logeado -->
-            <a th:if="${session.usuario != null}"
-               href="/cliente/favoritos"
-               class="btn edit-btn" title="Favoritos">⭐</a>
+        <!-- Derecha: Favoritos + Usuario -->
+        <div class="topbar-right">
 
-            <!-- Login o Logout -->
-            <a th:if="${session.usuario == null}"
-               href="/login" class="btn submit-btn">🔐</a>
+            <!-- Favoritos -->
             <a th:if="${session.usuario != null}"
-               href="/logout" class="btn delete-btn">🚪</a>
+               href="/cliente/favoritos" class="btn edit-btn" title="Favoritos">⭐</a>
+
+            <!-- Dropdown usuario -->
+            <div class="dropdown">
+                <button class="user-btn">👤</button>
+                <div class="dropdown-content" th:if="${session.usuario == null}">
+                    <a href="/login">🔐 Iniciar sesión</a>
+                    <a href="/registro">📝 Registrarse</a>
+                </div>
+                <div class="dropdown-content" th:if="${session.usuario != null}">
+                    <span th:text="${session.usuario.nombre}">Usuario</span>
+                    <a href="/logout">🚪 Cerrar sesión</a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- BOTONES vistosos bajo el título para invitados -->
+    <!-- Botones vistosos si no hay sesión -->
     <div th:if="${session.usuario == null}" style="text-align:center;margin-bottom:2em;">
-        <a href="/login"    class="btn submit-btn">🔐 Iniciar sesión</a>
+        <a href="/login" class="btn submit-btn">🔐 Iniciar sesión</a>
         <a href="/registro" class="btn edit-btn">📝 Registrarse</a>
     </div>
 
-    <!-- Saludo al usuario -->
-    <h2 th:if="${session.usuario != null}"
-        style="text-align:center;margin-bottom:1.5em;">
+    <!-- Saludo -->
+    <h2 th:if="${session.usuario != null}">
         ¡Hola <span th:text="${session.usuario.nombre}">Usuario</span>!
     </h2>
 
-    <!-- LISTA RESTAURANTES ------------------------------------------>
+    <!-- Restaurantes -->
     <h2>🍴 Restaurantes disponibles</h2>
     <ul class="menu-list">
         <li th:each="restaurante : ${restaurantes}" class="menu-item">

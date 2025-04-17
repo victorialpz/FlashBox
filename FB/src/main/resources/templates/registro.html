@@ -1,57 +1,125 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link th:href="@{/css/styles.css}" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Registro • FlashBox</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+        .registro-container {
+            max-width: 900px;
+            margin: 5rem auto;
+            display: flex;
+            background-color: #1e1e1e;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        .registro-left, .registro-right {
+            flex: 1;
+            padding: 3rem;
+        }
+        .registro-left {
+            border-right: 1px solid #333;
+        }
+        .registro-right h2 {
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        .form-input, .form-select {
+            background-color: #121212;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary);
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+        .form-footer {
+            text-align: center;
+            margin-top: 1.8rem;
+        }
+        .form-footer a {
+            color: #8ab4f8;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
 <body>
-<div class="container">
-    <h1>📝 Registro de Usuario</h1>
+<div class="registro-container">
 
-    <form th:action="@{/registro}" th:object="${usuario}" method="post"
-          class="form form-vertical">
+    <div class="registro-left">
+        <h1 style="color:white;">Crea tu cuenta</h1>
+        <p>Regístrate en FlashBox para empezar a hacer pedidos, gestionar menús o repartir comida.</p>
+    </div>
 
-        <div class="form-group">
-            <label>Nombre:</label>
-            <input type="text" th:field="*{nombre}" class="form-input" required>
+    <div class="registro-right">
+        <h2>📝 Registro de Usuario</h2>
+
+        <form th:action="@{/registro}" th:object="${usuario}" method="post" class="form">
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" th:field="*{nombre}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>Apellidos</label>
+                <input type="text" th:field="*{apellidos}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>Correo electrónico</label>
+                <input type="email" th:field="*{correo}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>Teléfono móvil</label>
+                <input type="tel" th:field="*{telefono}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>Nombre de usuario</label>
+                <input type="text" th:field="*{username}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" th:field="*{password}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>Rol</label>
+                <select th:field="*{rol}" class="form-select" required>
+                    <option value="CLIENTE">Cliente</option>
+                    <option value="RESTAURANTE">Restaurante</option>
+                    <option value="REPARTIDOR">Repartidor</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn submit-btn" style="width: 100%;">✅ Registrarse</button>
+        </form>
+
+        <div class="form-footer">
+            <a href="/login">¿Ya tienes cuenta? Inicia sesión</a>
         </div>
-
-        <div class="form-group">
-            <label>Apellidos:</label>
-            <input type="text" th:field="*{apellidos}" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label>Correo electrónico:</label>
-            <input type="email" th:field="*{correo}" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label>Teléfono móvil:</label>
-            <input type="tel" th:field="*{telefono}" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label>Nombre de usuario:</label>
-            <input type="text" th:field="*{username}" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label>Contraseña:</label>
-            <input type="password" th:field="*{password}" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label>Rol:</label>
-            <select th:field="*{rol}" class="form-select" required>
-                <option value="CLIENTE">Cliente</option>
-                <option value="RESTAURANTE">Restaurante</option>
-                <option value="REPARTIDOR">Repartidor</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn submit-btn">✅ Registrarse</button>
-    </form>
-
-    <div style="text-align:center;margin-top:1.2rem;">
-        <a href="/login" class="btn edit-btn">¿Ya tienes cuenta? Inicia sesión</a>
     </div>
 </div>
 </body>
+</html>

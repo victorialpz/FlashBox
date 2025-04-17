@@ -1,28 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link th:href="@{/css/styles.css}" rel="stylesheet"/>
-
 <head>
     <meta charset="UTF-8">
     <title>Iniciar sesión • FlashBox</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+        .login-container {
+            max-width: 900px;
+            margin: 5rem auto;
+            display: flex;
+            background-color: #1e1e1e;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        .login-left, .login-right {
+            flex: 1;
+            padding: 3rem;
+        }
+        .login-left {
+            border-right: 1px solid #333;
+        }
+        .login-right h2 {
+            margin-bottom: 2rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .form-input {
+            background-color: #121212;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        .form-footer a {
+            color: #8ab4f8;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>🔐 Iniciar sesión</h1>
+<div class="login-container">
 
-    <form th:action="@{/login}" method="post" class="form" style="max-width:400px;margin:auto;">
-        <input type="text"     name="username" placeholder="Nombre de usuario" class="form-input" required/>
-        <input type="password" name="password" placeholder="Contraseña"        class="form-input" required/>
-        <button type="submit" class="btn submit-btn" style="width:100%;">Entrar</button>
-    </form>
-
-    <p th:if="${error}" th:text="${error}" style="color:#ef4444;text-align:center;margin-top:1em;"></p>
-
-    <div style="text-align:center;margin-top:1.5em;">
-        <a href="/registro" class="btn edit-btn">📝 ¿No tienes cuenta? Regístrate</a>
+    <div class="login-left">
+        <h1 style="color:white;">Inicia sesión</h1>
+        <p>con tu cuenta de FlashBox. Esta cuenta te permitirá hacer pedidos, guardar favoritos y mucho más.</p>
     </div>
+
+    <div class="login-right">
+        <h2>🔒 Accede a tu cuenta</h2>
+
+        <form th:action="@{/login}" method="post" class="form">
+
+            <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" name="username" placeholder="Introduce tu usuario" class="form-input" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="Introduce tu contraseña" class="form-input" required/>
+            </div>
+
+            <button type="submit" class="btn submit-btn" style="width: 100%;">Siguiente</button>
+
+            <p th:if="${error}" th:text="${error}" style="color:#ef4444;margin-top:1rem;"></p>
+
+            <div class="form-footer">
+                <a href="/registro">Crear cuenta</a>
+                <a href="#">¿Has olvidado tu usuario?</a>
+            </div>
+        </form>
+    </div>
+
 </div>
 </body>
 </html>

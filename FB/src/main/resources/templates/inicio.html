@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FlashBox – Inicio</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+
+    <!-- TOPBAR (igual que en home.html) -->
+    <!-- ——— copia exactamente el bloque de arriba ——— -->
+    <div class="topbar">
+
+        <div class="topbar-left">
+            <h1 class="logo">FlashBox</h1>
+
+            <div class="dropdown">
+                <button class="user-btn">👤</button>
+
+                <div class="dropdown-content" th:if="${session.usuario == null}">
+                    <a href="/login">🔐 Iniciar sesión</a>
+                    <a href="/registro">📝 Registrarse</a>
+                </div>
+
+                <div class="dropdown-content" th:if="${session.usuario != null}">
+                    <span style="padding:.8rem 1rem;font-weight:600;"
+                          th:text="${session.usuario.nombre}">Usuario</span>
+                    <a href="/logout">🚪 Cerrar sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="icon-group">
+            <div class="dropdown">
+                <button class="hamburger">☰</button>
+                <div class="dropdown-content">
+                    <a th:each="cat : ${categorias}"
+                       th:href="@{'/?categoria=' + ${cat}}"
+                       th:text="${cat}">Cat</a>
+                </div>
+            </div>
+
+            <a th:if="${session.usuario != null}"
+               href="/cliente/favoritos" class="btn edit-btn">⭐</a>
+
+            <a th:if="${session.usuario != null}"
+               href="/logout" class="btn delete-btn">🚪</a>
+        </div>
+    </div>
+
+    <!-- Botones o saludo -->
+    <div th:if="${session.usuario == null}" style="text-align:center;margin:2rem 0;">
+        <a href="/login"    class="btn submit-btn">🔐 Iniciar sesión</a>
+        <a href="/registro" class="btn edit-btn">📝 Registrarse</a>
+    </div>
+
+    <div th:if="${session.usuario != null}" style="text-align:center;margin:2rem 0;">
+        <h2>¡Hola <span th:text="${session.usuario.nombre}">Usuario</span>!</h2>
+    </div>
+
+    <!-- Restaurantes -->
+    <h2>🍴 Restaurantes disponibles</h2>
+    <ul class="menu-list">
+        <li th:each="restaurante : ${restaurantes}" class="menu-item">
+            <strong th:text="${restaurante.nombre}">Nombre</strong>
+            <div style="display:flex;gap:.6em;">
+                <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}" class="btn edit-btn">📋 Ver menú</a>
+                <form th:action="@{/cliente/favoritos/agregar}" method="post">
+                    <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}"/>
+                    <button type="submit" class="btn submit-btn">⭐</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

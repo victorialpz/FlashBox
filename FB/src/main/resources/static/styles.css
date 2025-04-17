@@ -38,13 +38,16 @@ h1{margin-bottom:1.5rem}
     display:flex;justify-content:space-between;align-items:center;
     margin-bottom:2rem;
 }
+.topbar-left{display:flex;align-items:center;gap:1rem;}   /* NUEVO: agrupa logo + usuario */
 .icon-group{display:flex;gap:.75rem;align-items:center;}
-/* hamburger */
+
+/* Botón ☰ */
 .hamburger{
     background:none;border:2px solid var(--primary);color:var(--primary);
     border-radius:8px;font-size:1.2rem;cursor:pointer;padding:.35rem .55rem;
 }
-/* desplegable */
+
+/* Dropdown genérico */
 .dropdown{position:relative;}
 .dropdown-content{
     display:none;flex-direction:column;
@@ -75,6 +78,19 @@ h1{margin-bottom:1.5rem}
 .delete-btn{background:#ef4444;color:#fff;}
 .delete-btn:hover{background:#d63031;}
 
+/* Botón usuario 👤 */
+.user-btn{
+    background:none;
+    border:2px solid var(--primary);
+    color:var(--primary);
+    border-radius:50%;
+    font-size:1.2rem;
+    width:2.2rem;height:2.2rem;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+}
+.user-btn:hover{background:var(--primary);color:#fff;}
+
 /* ---------- LISTA RESTAURANTES ---------- */
 ul.menu-list{list-style:none;margin:0;padding:0}
 .menu-item{
@@ -93,7 +109,7 @@ ul.menu-list{list-style:none;margin:0;padding:0}
 }
 .form-input:focus,.form-select:focus{border-color:var(--primary);outline:none}
 
-/* FORM vertical (registro / login) */
+/* Formularios verticales (registro / login) */
 .form-vertical .form-group{display:flex;flex-direction:column;gap:.4rem}
 
 /* ---------- TABLA ENTREGAS ---------- */
