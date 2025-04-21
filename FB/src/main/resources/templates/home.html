@@ -1,212 +1,139 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>FlashBox – Bienvenido</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <title>Inicio ‑ FlashBox</title>
     <style>
         body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
+            color: #FFA500;
             margin: 0;
             padding: 0;
-            background-color: #121212;
-            font-family: 'Poppins', sans-serif;
-            color: white;
         }
-
-        .container {
-            max-width: 1100px;
-            margin: 3rem auto;
-            padding: 2rem;
-        }
-
-        .topbar {
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
+            background-color: #1e1e1e;
+            padding: 1em 2em;
         }
-
+        .left-header {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
         .logo {
-            font-size: 2rem;
+            font-size: 1.8em;
             font-weight: bold;
-            color: #ff7b2e;
+            color: #FF6F00;
         }
-
-        .dropdown-content a,
-        .dropdown-content span {
-            color: black;
-            text-decoration: none;
-            padding: 0.8rem 1.2rem;
-            display: block;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-content {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            right: 0;
-            top: 120%;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-            min-width: 180px;
-            z-index: 99;
-            overflow: hidden;
-        }
-
-        .dropdown:hover .dropdown-content,
-        .dropdown:focus-within .dropdown-content {
+        .menu-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #fff;
+            border-radius: 6px;
             display: flex;
-        }
-
-        .hero {
-            background-color: #1e1e1e;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #ff7b2e;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            color: #ccc;
-        }
-
-        .hero a {
-            margin: 0 0.5rem;
-        }
-
-        .btn {
-            font-weight: 600;
-            padding: 0.7rem 1.5rem;
-            border-radius: 10px;
-            border: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            text-decoration: none;
-            transition: transform 0.2s;
-            display: inline-block;
         }
-
-        .btn:hover {
-            transform: scale(1.05);
+        .menu-icon div {
+            width: 20px;
+            height: 2px;
+            background-color: #333;
+            margin: 3px 0;
         }
-
-        .submit-btn {
-            background-color: #ff7b2e;
-            color: white;
+        .usuario-saludo {
+            font-size: 1.1em;
+            margin-top: 0.2em;
         }
-
-        .edit-btn {
-            background-color: #3b82f6;
-            color: white;
+        .categorias-btn {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
         }
-
-        .menu-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .categorias-btn:hover {
+            background-color: #ddd;
         }
-
-        .menu-item {
+        main {
+            padding: 2em;
+        }
+        h2 {
+            color: #FFA500;
+            font-size: 1.5em;
+            margin-top: 1em;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
             background-color: #1e1e1e;
-            padding: 1.5rem;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            margin-bottom: 1em;
+            padding: 1em;
+            border-radius: 8px;
         }
-
-        .menu-item strong {
-            font-size: 1.3rem;
-            color: white;
+        button {
+            background-color: #FFA500;
+            color: black;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            cursor: pointer;
         }
-
-        .menu-item .actions {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
+        button:hover {
+            background-color: #e69500;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-
-    <!-- TOPBAR -->
-    <div class="topbar">
+<header>
+    <div class="left-header">
         <div class="logo">FlashBox</div>
-
-        <div style="display: flex; gap: 1rem; align-items: center;">
-            <!-- Botón Categorías -->
-            <div class="dropdown">
-                <button class="btn">☰ Categorías</button>
-                <div class="dropdown-content">
-                    <a th:each="cat : ${categorias}"
-                       th:href="@{'/?categoria=' + ${cat}}"
-                       th:text="${cat}">Cat</a>
-                </div>
-            </div>
-
-            <!-- Usuario -->
-            <div class="dropdown">
-                <button class="btn">👤</button>
-                <div class="dropdown-content" th:if="${session.usuario == null}">
-                    <a href="/login">🔐 Iniciar sesión</a>
-                    <a href="/registro">📝 Registrarse</a>
-                </div>
-                <div class="dropdown-content" th:if="${session.usuario != null}">
-                    <span th:text="${session.usuario.nombre}">👋 Hola</span>
-                    <a href="/logout">🚪 Cerrar sesión</a>
-                </div>
-            </div>
+        <div class="menu-icon">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
+    <div>
+        <a th:if="${session.usuario == null}" href="/registro" style="color:#FFA500; margin-right:1em;">Registrarse</a>
+        <a th:if="${session.usuario == null}" href="/login" style="color:#FFA500;">Iniciar sesión</a>
+        <form th:if="${session.usuario != null}" action="/logout" method="get" style="display:inline">
+            <button type="submit" class="categorias-btn">Cerrar sesión</button>
+        </form>
+    </div>
+</header>
 
-    <!-- HERO si no hay sesión -->
-    <div class="hero" th:if="${session.usuario == null}">
-        <h1>¡Bienvenido a FlashBox!</h1>
-        <p>Descubre los mejores restaurantes y pide tu comida favorita desde casa.</p>
-        <a href="/registro" class="btn edit-btn">📝 Registrarse</a>
-        <a href="/login" class="btn submit-btn">🔐 Iniciar sesión</a>
+<main>
+    <div class="usuario-saludo" th:if="${session.usuario != null}">
+        ¡Hola <span th:text="${session.usuario.nombre}">Usuario</span>!
     </div>
 
-    <!-- Saludo si hay sesión -->
-    <h2 th:if="${session.usuario != null}" style="text-align:center; color:#ff7b2e;">
-        ¡Hola <span th:text="${session.usuario.nombre}">Usuario</span>!
-    </h2>
+    <h2>🍴 Restaurantes disponibles</h2>
 
-    <!-- Lista de restaurantes -->
-    <h2 style="text-align:center; margin-top:2rem;">🍴 Restaurantes disponibles</h2>
-    <ul class="menu-list">
-        <li th:each="restaurante : ${restaurantes}" class="menu-item">
-            <strong th:text="${restaurante.nombre}">Nombre Restaurante</strong>
-            <div class="actions">
-                <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}" class="btn edit-btn">📋 Ver menú</a>
-                <form th:action="@{/cliente/favoritos/agregar}" method="post">
-                    <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
-                    <button type="submit" class="btn submit-btn">⭐ Favorito</button>
-                </form>
-            </div>
+    <div th:if="${#lists.isEmpty(restaurantes)}">
+        <p>Aún no hay restaurantes registrados.</p>
+        <p>No hay restaurantes disponibles por el momento.</p>
+    </div>
+
+    <ul th:if="${not #lists.isEmpty(restaurantes)}">
+        <li th:each="restaurante : ${restaurantes}">
+            <strong th:text="${restaurante.nombre}"></strong><br/>
+            <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Ver menú</a>
+            <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
+                <input type="hidden" name="restauranteId" th:value="${restaurante.id}" />
+                <button type="submit">⭐</button>
+            </form>
         </li>
     </ul>
-</div>
+</main>
 
 </body>
 </html>
