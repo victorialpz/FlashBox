@@ -1,5 +1,7 @@
 package es.uclm.FlashBox.business.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; 
@@ -42,9 +44,8 @@ public class CartaMenuController {
     @GetMapping("/{id}")
     public String verMenu(@PathVariable Long id, Model model) {
         Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
-
         if (restaurante == null) {
-            return "redirect:/error"; // o página de error
+            return "redirect:/error";
         }
 
         CartaMenu carta = restaurante.getCartaMenu();
@@ -56,11 +57,16 @@ public class CartaMenuController {
             restauranteDAO.save(restaurante);
         }
 
+        List<ItemMenu> items = carta.getItems();
         model.addAttribute("restaurante", restaurante);
-        model.addAttribute("items", carta.getItems());
+        model.addAttribute("items", items);
         model.addAttribute("itemMenu", new ItemMenu());
 
-        return "carta_menu"; // Asegúrate de tener esta plantilla
+        if (items == null || items.isEmpty()) {
+            model.addAttribute("mensaje", "Ups, el restaurante todavía no ha introducido ningún menú.");
+        }
+
+        return "carta_menu";
     }
 
     @PostMapping("/{id}/agregar")
@@ -119,4 +125,5 @@ public class CartaMenuController {
     itemMenuDAO.deleteById(itemId);
     return "redirect:/restaurante/menu/" + id;
 	}
+    
 }

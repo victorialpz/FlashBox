@@ -118,9 +118,7 @@
 <main>
     <h1>🍽️ Menú del Restaurante</h1>
 
-    <div th:if="${#lists.isEmpty(items)}" class="mensaje-vacio">
-        ⚠️ Ups, el restaurante todavía no ha introducido ningún menú.
-    </div>
+    <p th:if="${mensaje}" th:text="${mensaje}" class="mensaje-vacio"></p>
 
     <ul th:if="${not #lists.isEmpty(items)}" class="menu-list">
         <li th:each="item : ${items}">

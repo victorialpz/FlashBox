@@ -9,4 +9,6 @@ import es.uclm.FlashBox.business.entity.Restaurante;
 public interface RestauranteDAO extends JpaRepository<Restaurante, Long> {
 	List<Restaurante> findByTipo(String tipo);
 
+	List<Restaurante> findByNombreContainingIgnoreCase(String nombre);
+
 }

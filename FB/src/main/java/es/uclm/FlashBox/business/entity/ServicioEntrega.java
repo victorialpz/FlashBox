@@ -1,73 +1,72 @@
 package es.uclm.FlashBox.business.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class ServicioEntrega {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	private String puntoA;
-	private String puntoB;
-	
-	private boolean recogido;
-	private boolean entregado;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@ManyToOne
-	private Repartidor repartidor;
+    private String puntoA;
+    private String puntoB;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean recogido = false;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public String getPuntoA() {
-		return puntoA;
-	}
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean entregado = false;
 
-	public void setPuntoA(String puntoA) {
-		this.puntoA = puntoA;
-	}
+    @ManyToOne
+    private Repartidor repartidor;
 
-	public String getPuntoB() {
-		return puntoB;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPuntoB(String puntoB) {
-		this.puntoB = puntoB;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Repartidor getRepartidor() {
-		return repartidor;
-	}
+    public String getPuntoA() {
+        return puntoA;
+    }
 
-	public void setRepartidor(Repartidor repartidor) {
-		this.repartidor = repartidor;
-	}
+    public void setPuntoA(String puntoA) {
+        this.puntoA = puntoA;
+    }
 
-	public boolean isEntregado() {
-		return entregado;
-	}
+    public String getPuntoB() {
+        return puntoB;
+    }
 
-	public void setEntregado(boolean entregado) {
-		this.entregado = entregado;
-	}
+    public void setPuntoB(String puntoB) {
+        this.puntoB = puntoB;
+    }
 
-	public boolean isRecogido() {
-		return recogido;
-	}
+   public boolean isRecogido() {
+        return recogido;
+    }
 
-	public void setRecogido(boolean recogido) {
-		this.recogido = recogido;
-	}
-	
+    public void setRecogido(boolean recogido) {
+        this.recogido = recogido;
+    }
 
+    public boolean isEntregado() {
+        return entregado;
+    }
+
+    public void setEntregado(boolean entregado) {
+        this.entregado = entregado;
+    }
+
+    public Repartidor getRepartidor() {
+        return repartidor;
+    }
+
+    public void setRepartidor(Repartidor repartidor) {
+        this.repartidor = repartidor;
+    }
 }

@@ -92,6 +92,14 @@
         button:hover {
             background-color: #e69500;
         }
+        .busqueda-form input {
+            flex: 1;
+            padding: 0.5em;
+            border-radius: 8px;
+            border: none;
+            background-color: #1e1e1e;
+            color: #FFA500;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +125,12 @@
         ¡Hola <span th:text="${session.usuario.nombre}">Usuario</span>!
     </div>
 
+    <h2>🔍 Buscar Restaurante</h2>
+    <form method="get" action="/buscar" class="busqueda-form" style="margin-bottom: 2em; display: flex; gap: 1em;">
+        <input type="text" name="nombre" placeholder="Introduce nombre de restaurante..." />
+        <button type="submit" class="favoritos-btn">Buscar</button>
+    </form>
+	<p th:if="${mensaje}" th:text="${mensaje}" style="color: #FFA500; font-weight: bold; text-align: center;"></p>
     <h2>🍴 Restaurantes disponibles</h2>
 
     <div th:if="${#lists.isEmpty(restaurantes)}">
