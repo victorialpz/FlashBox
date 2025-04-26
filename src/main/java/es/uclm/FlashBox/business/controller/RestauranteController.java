@@ -26,8 +26,8 @@ public class RestauranteController {
 	}
 
 	@GetMapping("/buscar")
-	public String buscarRestaurantes(@RequestParam("nombre") String nombre, Model model) {
-	    List<Restaurante> resultados = restauranteRepository.findByNombreContainingIgnoreCase(nombre);
+	public String buscarRestaurantes(@RequestParam("nombre") String nombre, String tipo, Model model) {
+		List<Restaurante> resultados = restauranteRepository.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(nombre, tipo);
 	    model.addAttribute("restaurantes", resultados);
 
 	    if (resultados.isEmpty()) {

@@ -21,18 +21,29 @@ public class HomeController {
 	@Autowired
 	private RestauranteDAO restauranteDAO;
 
-	@GetMapping({ "/", "/home" })
-	public String mostrarInicio(@RequestParam(required = false) String categoria, Model model) {
-		List<Restaurante> restaurantes = (categoria == null) ? restauranteDAO.findAll()
-				: restauranteDAO.findByTipo(categoria);
+	@GetMapping({"/", "/home"})
+	public String mostrarInicio(
+	        @RequestParam(required = false) String nombre,
+	        @RequestParam(required = false) String tipo,
+	        Model model) {
 
-		List<String> categorias = restauranteDAO.findAll().stream().map(Restaurante::getTipo).filter(Objects::nonNull)
-				.distinct().toList();
+	    List<Restaurante> restaurantes = restauranteDAO
+	            .findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase// ✅
+(
+	                    nombre == null ? "" : nombre,
+	                    tipo   == null ? "" : tipo);
 
-		model.addAttribute("restaurantes", restaurantes);
-		model.addAttribute("categorias", categorias);
-		return "home";
+	    List<String> categorias = restauranteDAO.findAll().stream()
+	            .map(Restaurante::getTipo)
+	            .filter(Objects::nonNull).distinct().toList();
+
+	    model.addAttribute("restaurantes", restaurantes);
+	    model.addAttribute("categorias", categorias);
+	    model.addAttribute("filtroNombre", nombre);
+	    model.addAttribute("filtroTipo",   tipo);
+	    return "home";        // :contentReference[oaicite:0]{index=0}&#8203;:contentReference[oaicite:1]{index=1}
 	}
+
 
 	@GetMapping("/inicio")
 	public String inicioCliente(HttpSession session, Model model) {

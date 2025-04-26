@@ -48,5 +48,13 @@ public class FavoritosController {
 		}
 		return "redirect:/";
 	}
+	@PostMapping("/eliminar")
+	public String eliminarFavorito(@RequestParam Long restauranteId){
+	    Cliente cliente = clienteDAO.findById(clienteId).orElse(null);
+	    cliente.getFavoritos().removeIf(r -> r.getId().equals(restauranteId));
+	    clienteDAO.save(cliente);
+	    return "redirect:/cliente/favoritos";
+	}
+
 
 }
