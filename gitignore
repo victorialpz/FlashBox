@@ -1,0 +1,25 @@
+# Base de datos Derby embebida
+derbyDB/
+
+# Archivos de compilación
+/target/
+/out/
+
+# Configuración específica del IDE
+*.iml
+.idea/
+*.classpath
+*.project
+*.settings/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs y temporales
+*.log
+*.tmp
+
+# Credenciales y configuraciones sensibles
+application.properties
+application.yml

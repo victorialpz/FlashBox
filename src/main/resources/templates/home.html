@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio ‑ FlashBox</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
+            color: #FFA500;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e1e1e;
+            padding: 1em 2em;
+        }
+        .left-header {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FF6F00;
+        }
+        .menu-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #fff;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .menu-icon div {
+            width: 20px;
+            height: 2px;
+            background-color: #333;
+            margin: 3px 0;
+        }
+        .usuario-saludo {
+            font-size: 1.1em;
+            margin-top: 0.2em;
+        }
+        .categorias-btn {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .categorias-btn:hover {
+            background-color: #ddd;
+        }
+        main {
+            padding: 2em;
+        }
+        h2 {
+            color: #FFA500;
+            font-size: 1.5em;
+            margin-top: 1em;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #1e1e1e;
+            margin-bottom: 1em;
+            padding: 1em;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #FFA500;
+            color: black;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e69500;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="left-header">
+        <div class="logo">FlashBox</div>
+        <div class="menu-icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div>
+        <a th:if="${session.usuario == null}" href="/registro" style="color:#FFA500; margin-right:1em;">Registrarse</a>
+        <a th:if="${session.usuario == null}" href="/login" style="color:#FFA500;">Iniciar sesión</a>
+        <form th:if="${session.usuario != null}" action="/logout" method="get" style="display:inline">
+            <button type="submit" class="categorias-btn">Cerrar sesión</button>
+        </form>
+    </div>
+</header>
+
+<main>
+    <div class="usuario-saludo" th:if="${session.usuario != null}">
+        ¡Hola <span th:text="${session.usuario.nombre}">Usuario</span>!
+    </div>
+
+    <h2>🍴 Restaurantes disponibles</h2>
+
+    <div th:if="${#lists.isEmpty(restaurantes)}">
+        <p>Aún no hay restaurantes registrados.</p>
+        <p>No hay restaurantes disponibles por el momento.</p>
+    </div>
+
+    <ul th:if="${not #lists.isEmpty(restaurantes)}">
+        <li th:each="restaurante : ${restaurantes}">
+            <strong th:text="${restaurante.nombre}"></strong><br/>
+            <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Ver menú</a>
+            <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
+                <input type="hidden" name="restauranteId" th:value="${restaurante.id}" />
+                <button type="submit">⭐</button>
+            </form>
+        </li>
+    </ul>
+</main>
+
+</body>
+</html>

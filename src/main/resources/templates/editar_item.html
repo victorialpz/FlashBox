@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Ítem del Menú</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+	<link th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <h1>✏️ Editar Ítem del Menú</h1>
+
+    <form th:action="@{'/restaurante/menu/' + ${restaurante.id} + '/editar/' + ${itemMenu.id}}" th:object="${itemMenu}" method="post" class="form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" th:field="*{nombre}" required class="form-input"/>
+
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" th:field="*{precio}" required class="form-input"/>
+
+        <label for="tipo">Tipo:</label>
+        <select th:field="*{tipo}" class="form-select">
+            <option value="COMIDA">Comida</option>
+            <option value="BEBIDA">Bebida</option>
+            <option value="POSTRE">Postre</option>
+        </select>
+
+        <button type="submit" class="btn submit-btn">💾 Guardar Cambios</button>
+    </form>
+
+    <div style="margin-top: 1em;">
+        <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}" class="btn edit-btn">🔙 Volver</a>
+    </div>
+</div>
+</body>
+</html>
