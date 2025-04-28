@@ -1,0 +1,49 @@
+{
+	"folders": {},
+	"connections": {
+		"derby-1961b9ff9fb-8d4071e6e656fb6": {
+			"provider": "generic",
+			"driver": "derby",
+			"name": "derbyDB 2",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\Users\\lopez\\Desktop\\wsRecuISO\\FlashBox\\derbyDB",
+				"url": "jdbc:derby:C:\\Users\\lopez\\Desktop\\wsRecuISO\\FlashBox\\derbyDB",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		},
+		"derby-1964009c45d-48838c59c9489972": {
+			"provider": "generic",
+			"driver": "derby",
+			"name": "wsRecuISO",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\Users\\lopez\\Desktop\\wsRecuISO",
+				"url": "jdbc:derby:C:\\Users\\lopez\\Desktop\\wsRecuISO",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}

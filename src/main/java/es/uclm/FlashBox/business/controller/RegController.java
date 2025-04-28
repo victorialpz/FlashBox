@@ -100,7 +100,7 @@ public class RegController {
 		if (usuario != null) {
 			session.setAttribute("usuario", usuario);
 			return switch (usuario.getRol()) {
-			case RESTAURANTE -> "redirect:/restaurante/carta";
+			case RESTAURANTE -> "redirect:/restaurante/menu/" + usuario.getRestaurante().getId();
 			case CLIENTE -> "redirect:/inicio";
 			case REPARTIDOR -> "redirect:/repartidor/entregas";
 			};
