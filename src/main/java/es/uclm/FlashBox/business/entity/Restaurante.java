@@ -30,6 +30,15 @@ public class Restaurante {
 	private List<Restaurante> favoritos;
 
 	private String tipo;
+	private String imagenUrl;
+
+	public String getImagenUrl() {
+		return imagenUrl;
+	}
+
+	public void setImagenUrl(String imagenUrl) {
+		this.imagenUrl = imagenUrl;
+	}
 
 	public Long getId() {
 		return id;
