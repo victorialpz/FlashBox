@@ -70,16 +70,22 @@ public class CartaMenuController {
     }
 
     @PostMapping("/{id}/agregar")
-    public String agregarItem(@PathVariable Long id, @ModelAttribute ItemMenu itemMenu, HttpSession session) {
+    public String agregarItem(@PathVariable Long id, @ModelAttribute ItemMenu itemForm, HttpSession session) {
         Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        
+
         if (restaurante == null || restaurante.getCartaMenu() == null || !esUsuarioRestauranteValido(usuario, restaurante)) {
             return "redirect:/error";
         }
 
-        itemMenu.setCartaMenu(restaurante.getCartaMenu());
-        itemMenuDAO.save(itemMenu);
+        // Creamos un nuevo ItemMenu a partir del formulario
+        ItemMenu itemNuevo = new ItemMenu();
+        itemNuevo.setNombre(itemForm.getNombre());
+        itemNuevo.setPrecio(itemForm.getPrecio());
+        itemNuevo.setTipo(itemForm.getTipo());
+        itemNuevo.setCartaMenu(restaurante.getCartaMenu());
+
+        itemMenuDAO.save(itemNuevo);
 
         return "redirect:/restaurante/menu/" + id;
     }

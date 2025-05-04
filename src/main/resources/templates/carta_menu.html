@@ -136,9 +136,13 @@
     <div th:if="${session.usuario != null and session.usuario.id == restaurante.usuario.id}">
         <h2>➕ Agregar Ítem</h2>
         <form th:action="@{/restaurante/menu/{id}/agregar(id=${restaurante.id})}" method="post" th:object="${itemMenu}" class="form">
-            <input type="text" th:field="*{nombre}" placeholder="Nombre del plato" class="form-input" />
-            <input type="number" th:field="*{precio}" placeholder="Precio (€)" class="form-input" />
-            <select th:field="*{tipo}" class="form-select">
+            <!-- ID oculto para asegurar que se pasa null -->
+            <input type="hidden" th:field="*{id}" />
+
+            <input type="text" th:field="*{nombre}" placeholder="Nombre del plato" class="form-input" required />
+            <input type="number" th:field="*{precio}" placeholder="Precio (€)" step="0.01" class="form-input" required />
+            <select th:field="*{tipo}" class="form-select" required>
+                <option value="" disabled selected>Selecciona un tipo</option>
                 <option value="COMIDA">Comida</option>
                 <option value="BEBIDA">Bebida</option>
                 <option value="POSTRE">Postre</option>
