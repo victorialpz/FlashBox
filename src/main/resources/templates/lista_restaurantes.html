@@ -1,30 +1,135 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Restaurantes</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <title>🍽️ Restaurantes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
+            color: #FFA500;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e1e1e;
+            padding: 1em 2em;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FF6F00;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        h1 {
+            color: #FFA500;
+            text-align: center;
+        }
+
+        .restaurant-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 1em 1.5em;
+            margin: 1em auto;
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .restaurant-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .restaurant-name {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: #FFA500;
+        }
+
+        .restaurant-address {
+            font-size: 0.95em;
+            color: #ccc;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1em;
+        }
+
+        .btn {
+            background-color: #FFA500;
+            color: black;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e69500;
+        }
+
+        form {
+            margin: 0;
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 2em;
+        }
+
+        .auth-links a {
+            color: #FFA500;
+            margin: 0 1em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+
+<header>
+    <div class="logo">FlashBox</div>
+</header>
+
+<main>
     <h1>🍽️ Restaurantes</h1>
 
-    <ul class="menu-list">
-        <li th:each="restaurante : ${restaurantes}" class="menu-item">
-            <span th:text="${restaurante.nombre}" class="item-nombre">Nombre Restaurante</span> - 
-            <span th:text="${restaurante.direccion}" class="item-tipo">Dirección</span>
-
-            <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
-                <input type="hidden" th:name="restauranteId" th:value="${restaurante.id}" />
-                <button type="submit" class="btn submit-btn">⭐ Favorito</button>
+    <div th:each="restaurante : ${restaurantes}" class="restaurant-card">
+        <div class="restaurant-info">
+            <div class="restaurant-name" th:text="${restaurante.nombre}">Nombre</div>
+            <div class="restaurant-address" th:text="${restaurante.direccion}">Dirección</div>
+        </div>
+        <div class="actions">
+            <form th:action="@{/cliente/favoritos/agregar}" method="post">
+                <input type="hidden" name="restauranteId" th:value="${restaurante.id}" />
+                <button type="submit" class="btn">⭐ Favorito</button>
             </form>
-        </li>
-    </ul>
-
-    <div style="margin-top: 1.5em; text-align: center;">
-        <a href="/registro" class="btn edit-btn">📝 Registrarse</a>
-        <a href="/login" class="btn submit-btn">🔐 Iniciar sesión</a>
+        </div>
     </div>
-</div>
+
+    <div class="auth-links">
+        <a th:href="@{/registro}">📝 Registrarse</a>
+        <a th:href="@{/login}">🔐 Iniciar sesión</a>
+    </div>
+</main>
+
 </body>
 </html>

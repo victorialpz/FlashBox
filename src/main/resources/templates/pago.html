@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pasarela de Pago</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #FFA500;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 2em;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #1e1e1e;
+            padding: 2em;
+            border-radius: 12px;
+        }
+        h1 {
+            color: #FFA500;
+        }
+        .btn {
+            background-color: #FFA500;
+            color: black;
+            padding: 0.7em 1.2em;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 2em;
+        }
+        .btn:hover {
+            background-color: #e69500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💳 Pasarela de Pago</h1>
+    <p>Pedido para: <strong th:text="${pedido.cliente.nombre}">Cliente</strong></p>
+    <p>Dirección: <span th:text="${pedido.direccionEntrega}">Dirección</span></p>
+
+    <form th:action="@{'/cliente/pedido/pagar/' + ${pedido.id}}" method="post">
+        <button type="submit" class="btn">✅ Confirmar pago</button>
+    </form>
+</div>
+
+</body>
+</html>

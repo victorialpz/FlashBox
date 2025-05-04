@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido Confirmado</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
+            color: #FFA500;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e1e1e;
+            padding: 1em 2em;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FF6F00;
+        }
+
+        main {
+            padding: 2em;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            color: #FFA500;
+        }
+
+        .btn {
+            background-color: #FFA500;
+            color: black;
+            border: none;
+            padding: 0.8em 1.5em;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 2em;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e69500;
+        }
+
+        .detalle-repartidor {
+            margin-top: 2em;
+            background-color: #1e1e1e;
+            padding: 1.5em;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">FlashBox</div>
+    <div>
+        <a href="/inicio" class="btn">🏠 Volver a Inicio</a>
+    </div>
+</header>
+
+<main>
+    <h1>✅ ¡Pedido confirmado!</h1>
+    <p>Tu pedido ha sido procesado correctamente y está en camino. Gracias por confiar en FlashBox.</p>
+
+    <div th:if="${repartidor != null}" class="detalle-repartidor">
+        <h2>🛵 Repartidor asignado:</h2>
+        <p><strong th:text="${repartidor.nombre} + ' ' + ${repartidor.apellidos}">Nombre Apellido</strong></p>
+        <p>Eficiencia del repartidor: <span th:text="${repartidor.eficiencia}">0</span></p>
+    </div>
+</main>
+
+</body>
+</html>
