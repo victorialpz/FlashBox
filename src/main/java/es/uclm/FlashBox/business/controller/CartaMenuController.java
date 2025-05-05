@@ -115,6 +115,7 @@ public class CartaMenuController {
         original.setNombre(itemActualizado.getNombre());
         original.setPrecio(itemActualizado.getPrecio());
         original.setTipo(itemActualizado.getTipo());
+        original.setStock(itemActualizado.getStock());
         itemMenuDAO.save(original);
 
         return "redirect:/restaurante/menu/" + id;
