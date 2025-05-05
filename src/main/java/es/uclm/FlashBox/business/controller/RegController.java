@@ -19,6 +19,9 @@ public class RegController {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	
+	@Autowired
+	private CartaMenuDAO cartaMenuDAO;
 
 	@Autowired
 	private ClienteDAO clienteDAO;
@@ -44,20 +47,25 @@ public class RegController {
 
 		switch (usuario.getRol()) {
 		case RESTAURANTE -> {
-			CartaMenu carta = new CartaMenu();
-			carta.setNombre("Carta de " + usuario.getNombre());
+		    CartaMenu carta = new CartaMenu();
+		    carta.setNombre("Carta de " + usuario.getNombre());
+		    carta = cartaMenuDAO.save(carta);
 
-			Restaurante restaurante = new Restaurante();
-			restaurante.setNombre(usuario.getNombre());
-			restaurante.setTelefono(usuario.getTelefono());
-			restaurante.setDireccion("Dirección pendiente");
-			restaurante.setCartaMenu(carta);
-			restaurante.setUsuario(usuario);
-			restaurante.setTipo(tipoRestaurante); // 🔗 relación
-			usuario.setRestaurante(restaurante); // 🔁
+		    Restaurante restaurante = new Restaurante();
+		    restaurante.setNombre(usuario.getNombre());
+		    restaurante.setTelefono(usuario.getTelefono());
+		    restaurante.setDireccion("Dirección pendiente");
+		    restaurante.setCartaMenu(carta);
+		    restaurante.setUsuario(usuario);
+		    restaurante.setTipo(tipoRestaurante);
 
-			restauranteDAO.save(restaurante);
+		    usuario.setRestaurante(restaurante);
+
+		
+		    restauranteDAO.save(restaurante);
+		    usuarioDAO.save(usuario);
 		}
+
 
 		case CLIENTE -> {
 			Cliente cliente = new Cliente();
