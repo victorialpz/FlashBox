@@ -20,15 +20,10 @@ public class PedidoController {
     @Autowired private RepartidorDAO repartidorDAO;
     @Autowired private PedidoDAO pedidoDAO;
     @Autowired private ServicioEntregaDAO servicioEntregaDAO;
-    @Autowired
-    private ItemMenuDAO itemMenuDAO;
-
 
     @GetMapping("/realizar/{restauranteId}")
-    public String mostrarFormularioPedido(@PathVariable Long restauranteId, Model model, HttpSession session) {
+    public String mostrarFormularioPedido(@PathVariable Long restauranteId, Model model) {
         Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        
         if (restaurante == null || restaurante.getCartaMenu() == null) {
             return "redirect:/error";
         }
@@ -36,43 +31,46 @@ public class PedidoController {
         model.addAttribute("restaurante", restaurante);
         model.addAttribute("items", restaurante.getCartaMenu().getItems());
         model.addAttribute("pedido", new Pedido());
-        return "pedido_form";
+        return "realizar_pedido";
     }
 
     @PostMapping("/realizar")
     public String procesarPedido(@ModelAttribute Pedido pedido, @RequestParam List<Long> itemIds,
                                   @RequestParam Long clienteId, @RequestParam Long restauranteId,
-                                  @RequestParam String direccionEntrega, Model model, HttpSession session) {
-    	if (itemIds == null || itemIds.isEmpty()) {
+                                  @RequestParam String direccionEntrega, Model model) {
+
+    	System.out.println(">>> PROCESANDO PEDIDO <<<");
+        System.out.println("clienteId: " + clienteId);
+        System.out.println("restauranteId: " + restauranteId);
+        System.out.println("direccionEntrega: " + direccionEntrega);
+        System.out.println("itemIds: " + itemIds);
+
+        if (itemIds == null || itemIds.isEmpty()) {
             model.addAttribute("mensaje", "❌ Debes seleccionar al menos un producto.");
             return "redirect:/cliente/pedido/realizar/" + restauranteId;
         }
-    	
+
         Cliente cliente = clienteDAO.findById(clienteId).orElse(null);
         Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
-        if (cliente == null || restaurante == null) return "redirect:/error";
-
-        List<ItemMenu> itemsSeleccionados = new ArrayList<>();
-        for (Long itemId : itemIds) {
-            Optional<ItemMenu> optionalItem = itemMenuDAO.findById(itemId);
-            if (optionalItem.isPresent()) {
-                ItemMenu item = optionalItem.get();
-                if (item.getStock() > 0) {
-                    item.setStock(item.getStock() - 1);
-                    itemMenuDAO.save(item);
-                    itemsSeleccionados.add(item);
-                } else {
-                    model.addAttribute("error", "El ítem '" + item.getNombre() + "' no tiene stock.");
-                    return "redirect:/cliente/pedido/realizar/" + restauranteId;
-                }
-            }
+        if (cliente == null || restaurante == null) {
+            return "redirect:/error";
         }
+
+        // 🔥 Filtrar ítems duplicados y limpiar relación antes de guardar
+        Set<Long> idsUnicos = new HashSet<>(itemIds);
+        List<ItemMenu> itemsSeleccionados = restaurante.getCartaMenu().getItems().stream()
+            .filter(item -> idsUnicos.contains(item.getId()))
+            .toList();
+
+        Set<ItemMenu> itemsUnicos = new LinkedHashSet<>(itemsSeleccionados);
+       
+        pedido.setItemsSeleccionados(itemsUnicos);
+
 
         pedido.setCliente(cliente);
         pedido.setRestaurante(restaurante);
         pedido.setDireccionEntrega(direccionEntrega);
         pedido.setPagado(true);
-        pedido.setItemsSeleccionados(itemsSeleccionados);
 
         // Selección automática de repartidor
         Repartidor repartidor = seleccionarRepartidorMasEficiente();
@@ -86,37 +84,10 @@ public class PedidoController {
         pedido.setServicioEntrega(servicio);
 
         pedidoDAO.save(pedido);
-        return "redirect:/cliente/pedido/pago/" + pedido.getId();
-    }
-    
-    @GetMapping("/pago/{pedidoId}")
-    public String mostrarPasarelaPago(@PathVariable Long pedidoId, Model model) {
-        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
-        if (pedido == null) return "redirect:/error";
 
-        model.addAttribute("pedido", pedido);
-        return "pago";
-    }
-    
-    @PostMapping("/pagar/{pedidoId}")
-    public String confirmarPago(@PathVariable Long pedidoId) {
-        pedidoDAO.findById(pedidoId).ifPresent(p -> {
-            p.setPagado(true);
-            pedidoDAO.save(p);
-        });
-
-        return "redirect:/cliente/pedido/confirmado/" + pedidoId;
-    }
-
-    @GetMapping("/confirmado/{pedidoId}")
-    public String mostrarConfirmacionFinal(@PathVariable Long pedidoId, Model model) {
-        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
-        if (pedido == null) return "redirect:/error";
-
-        model.addAttribute("repartidor", pedido.getServicioEntrega().getRepartidor());
+        model.addAttribute("repartidor", repartidor);
         return "pedido_confirmado";
     }
-
     private Repartidor seleccionarRepartidorMasEficiente() {
         return repartidorDAO.findAll().stream()
                 .sorted(Comparator.comparingInt(Repartidor::getEficiencia).reversed())

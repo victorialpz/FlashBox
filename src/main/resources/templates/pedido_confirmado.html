@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pedido Confirmado</title>
+    <title>✅ Pedido Confirmado • FlashBox</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -11,75 +11,70 @@
             margin: 0;
             padding: 0;
         }
-
         header {
+            background-color: #1e1e1e;
+            padding: 1em 2em;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #1e1e1e;
-            padding: 1em 2em;
         }
-
         .logo {
             font-size: 1.8em;
             font-weight: bold;
             color: #FF6F00;
         }
-
-        main {
-            padding: 2em;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        h1, h2 {
-            color: #FFA500;
-        }
-
         .btn {
             background-color: #FFA500;
             color: black;
             border: none;
-            padding: 0.8em 1.5em;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 2em;
+            padding: 0.6em 1.2em;
+            border-radius: 6px;
             cursor: pointer;
+            text-decoration: none;
         }
-
         .btn:hover {
             background-color: #e69500;
         }
-
-        .detalle-repartidor {
-            margin-top: 2em;
+        main {
+            text-align: center;
+            padding: 4em 2em;
+        }
+        .mensaje {
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 1em;
+        }
+        .repartidor {
             background-color: #1e1e1e;
             padding: 1.5em;
-            border-radius: 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 1em;
         }
     </style>
 </head>
 <body>
-
 <header>
     <div class="logo">FlashBox</div>
     <div>
-        <a href="/inicio" class="btn">🏠 Volver a Inicio</a>
+        <a href="/inicio" class="btn">🏠 Volver al inicio</a>
     </div>
 </header>
 
 <main>
-    <h1>✅ ¡Pedido confirmado!</h1>
-    <p>Tu pedido ha sido procesado correctamente y está en camino. Gracias por confiar en FlashBox.</p>
+    <div class="mensaje">✅ ¡Tu pedido ha sido confirmado!</div>
 
-    <div th:if="${repartidor != null}" class="detalle-repartidor">
-        <h2>🛵 Repartidor asignado:</h2>
-        <p><strong th:text="${repartidor.nombre} + ' ' + ${repartidor.apellidos}">Nombre Apellido</strong></p>
-        <p>Eficiencia del repartidor: <span th:text="${repartidor.eficiencia}">0</span></p>
+    <p>Un repartidor ha sido asignado para tu entrega:</p>
+
+    <div class="repartidor" th:if="${repartidor != null}">
+        <p><strong>🚴 Repartidor:</strong> <span th:text="${repartidor.nombre}"></span> <span th:text="${repartidor.apellidos}"></span></p>
+        <p><strong>📧 Email:</strong> <span th:text="${repartidor.correo}"></span></p>
+        <p><strong>⚡ Eficiencia:</strong> <span th:text="${repartidor.eficiencia} + ' %'"></span></p>
     </div>
-</main>
 
+    <p style="margin-top: 2em;">
+        Puedes seguir viendo menús o hacer otro pedido desde la página de inicio.
+    </p>
+</main>
 </body>
 </html>

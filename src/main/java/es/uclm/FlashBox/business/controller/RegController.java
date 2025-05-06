@@ -19,9 +19,6 @@ public class RegController {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
-	
-	@Autowired
-	private CartaMenuDAO cartaMenuDAO;
 
 	@Autowired
 	private ClienteDAO clienteDAO;
@@ -31,6 +28,7 @@ public class RegController {
 
 	@Autowired
 	private RestauranteDAO restauranteDAO;
+
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -47,25 +45,20 @@ public class RegController {
 
 		switch (usuario.getRol()) {
 		case RESTAURANTE -> {
-		    CartaMenu carta = new CartaMenu();
-		    carta.setNombre("Carta de " + usuario.getNombre());
-		    carta = cartaMenuDAO.save(carta);
+			CartaMenu carta = new CartaMenu();
+			carta.setNombre("Carta de " + usuario.getNombre());
 
-		    Restaurante restaurante = new Restaurante();
-		    restaurante.setNombre(usuario.getNombre());
-		    restaurante.setTelefono(usuario.getTelefono());
-		    restaurante.setDireccion("Dirección pendiente");
-		    restaurante.setCartaMenu(carta);
-		    restaurante.setUsuario(usuario);
-		    restaurante.setTipo(tipoRestaurante);
+			Restaurante restaurante = new Restaurante();
+			restaurante.setNombre(usuario.getNombre());
+			restaurante.setTelefono(usuario.getTelefono());
+			restaurante.setDireccion("Dirección pendiente");
+			restaurante.setCartaMenu(carta);
+			restaurante.setUsuario(usuario);
+			restaurante.setTipo(tipoRestaurante); // 🔗 relación
+			usuario.setRestaurante(restaurante); // 🔁
 
-		    usuario.setRestaurante(restaurante);
-
-		
-		    restauranteDAO.save(restaurante);
-		    usuarioDAO.save(usuario);
+			restauranteDAO.save(restaurante);
 		}
-
 
 		case CLIENTE -> {
 			Cliente cliente = new Cliente();
@@ -98,30 +91,59 @@ public class RegController {
 	public String mostrarLogin() {
 		return "login";
 	}
-
 	@PostMapping("/login")
 	public String procesarLogin(@RequestParam("username") String username, @RequestParam("password") String password,
-			HttpSession session, Model model) {
+	                            HttpSession session, Model model) {
 
-		Usuario usuario = usuarioService.autenticar(username, password);
+	    try {
+	        Usuario usuario = usuarioService.autenticar(username, password);
 
-		if (usuario != null) {
-			session.setAttribute("usuario", usuario);
-			return switch (usuario.getRol()) {
-			case RESTAURANTE -> "redirect:/restaurante/menu/" + usuario.getRestaurante().getId();
-			case CLIENTE -> "redirect:/inicio";
-			case REPARTIDOR -> "redirect:/repartidor/entregas";
-			};
-		} else {
-			model.addAttribute("error", "Credenciales incorrectas");
-			return "login";
-		}
+	        if (usuario == null) {
+	            model.addAttribute("error", "Credenciales incorrectas");
+	            return "login";
+	        }
+
+	        usuario = usuarioDAO.findById(usuario.getId()).orElse(null);
+	        session.setAttribute("usuario", usuario);
+
+	        System.out.println("🟢 Usuario autenticado: " + usuario.getUsername());
+	        System.out.println("🔐 Rol: " + usuario.getRol());
+
+	        if (usuario.getRol() == Rol.RESTAURANTE) {
+	            Restaurante r = usuario.getRestaurante();
+	            System.out.println("📦 Restaurante: " + r);
+
+	            if (r == null) {
+	                System.out.println("❌ Restaurante es null");
+	                return "redirect:/error";
+	            }
+
+	            Long id = r.getId();
+	            System.out.println("📦 ID Restaurante: " + id);
+
+	            if (id == null) {
+	                System.out.println("❌ ID del restaurante es null");
+	                return "redirect:/error";
+	            }
+
+	            return "redirect:/restaurante/menu/" + id;
+	        }
+
+	        if (usuario.getRol() == Rol.CLIENTE) return "redirect:/inicio";
+	        if (usuario.getRol() == Rol.REPARTIDOR) return "redirect:/repartidor/entregas";
+
+	        return "redirect:/error";
+	    } catch (Exception e) {
+	        System.out.println("🔥 EXCEPCIÓN:");
+	        e.printStackTrace();
+	        return "redirect:/error";
+	    }
 	}
+
 
 	@GetMapping("/logout")
 	public String cerrarSesion(HttpSession session) {
 		session.invalidate();
 		return "redirect:/login";
 	}
-
 }

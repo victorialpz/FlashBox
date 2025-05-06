@@ -139,7 +139,6 @@
         	 <input type="hidden" th:field="*{id}" value="" />
             <input type="text" th:field="*{nombre}" placeholder="Nombre del plato" class="form-input" required />
             <input type="number" th:field="*{precio}" placeholder="Precio (€)" class="form-input" required />
-            <input type="number" th:field="*{stock}" placeholder="Stock disponible" min="0" class="form-input" required />
             <select th:field="*{tipo}" class="form-select" required>
                 <option value="COMIDA">Comida</option>
                 <option value="BEBIDA">Bebida</option>
@@ -156,4 +155,3 @@
 </div>
 </body>
 </html>
-

@@ -18,8 +18,6 @@ public class ItemMenu {
 
 	@ManyToOne
 	private CartaMenu cartaMenu;
-	
-	private int stock;
 
 	public Long getId() {
 		return id;
@@ -60,12 +58,5 @@ public class ItemMenu {
 	public void setCartaMenu(CartaMenu cartaMenu) {
 		this.cartaMenu = cartaMenu;
 	}
-	public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
 
 }

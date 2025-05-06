@@ -70,32 +70,33 @@ public class CartaMenuController {
     }
 
     @PostMapping("/{id}/agregar")
-    public String agregarItem(@PathVariable Long id, @ModelAttribute ItemMenu itemForm, HttpSession session, Model model) {
+    public String agregarItem(@PathVariable Long id, @ModelAttribute ItemMenu itemMenu, HttpSession session, Model model) {
+
+    	
         Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-
-        if (restaurante == null || restaurante.getCartaMenu() == null || !esUsuarioRestauranteValido(usuario, restaurante)) {
+        
+        if (restaurante == null || usuario == null || !esUsuarioRestauranteValido(usuario, restaurante)) {
+            return "redirect:/error";
+        }
+        
+        CartaMenu carta = cartaMenuDAO.findById(restaurante.getCartaMenu().getId()).orElse(null);
+        if (carta == null) {
             return "redirect:/error";
         }
 
-        if (itemForm.getNombre() == null || itemForm.getNombre().isBlank() || itemForm.getPrecio() == null || itemForm.getTipo() == null) {
-            model.addAttribute("mensaje", "Completa todos los campos.");
-            return "redirect:/restaurante/menu/" + id;
-        }
+        itemMenu.setCartaMenu(carta);    
+        
+        if (itemMenu.getNombre() == null || itemMenu.getNombre().isBlank() || itemMenu.getPrecio() == null || itemMenu.getTipo() == null) {
+                model.addAttribute("mensaje", "Completa todos los campos.");
+                return "redirect:/restaurante/menu/" + id;
+            }
 
-        // 🛠️ Crear nuevo objeto manualmente, sin ID
-        ItemMenu nuevo = new ItemMenu();
-        nuevo.setNombre(itemForm.getNombre());
-        nuevo.setPrecio(itemForm.getPrecio());
-        nuevo.setTipo(itemForm.getTipo());
-        nuevo.setStock(itemForm.getStock());
-        nuevo.setCartaMenu(restaurante.getCartaMenu());
-
-        itemMenuDAO.save(nuevo);
-
+        itemMenuDAO.save(itemMenu);
+        
         return "redirect:/restaurante/menu/" + id;
     }
-
+    
     @GetMapping("/{id}/editar/{itemId}")
     public String editarItemForm(@PathVariable Long id, @PathVariable Long itemId, Model model, HttpSession session) {
         ItemMenu item = itemMenuDAO.findById(itemId).orElse(null);
@@ -122,7 +123,6 @@ public class CartaMenuController {
         original.setNombre(itemActualizado.getNombre());
         original.setPrecio(itemActualizado.getPrecio());
         original.setTipo(itemActualizado.getTipo());
-        original.setStock(itemActualizado.getStock());
         itemMenuDAO.save(original);
 
         return "redirect:/restaurante/menu/" + id;
@@ -139,5 +139,5 @@ public class CartaMenuController {
     itemMenuDAO.deleteById(itemId);
     return "redirect:/restaurante/menu/" + id;
 	}
-    
 }
+    
