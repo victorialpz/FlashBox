@@ -1,42 +1,144 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="UTF-8" />
-    <title>Entregas Asignadas</title>
-	<link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Entregas Repartidor</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
+            color: #FFA500;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 1em 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FF6F00;
+        }
+
+        .menu-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 4px 0;
+        }
+
+        .btn {
+            padding: 0.6em 1.2em;
+            background-color: #FFA500;
+            color: black;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #FF8800;
+        }
+
+        .contenedor {
+            padding: 2em;
+            max-width: 800px;
+            margin: auto;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+
+        .entrega {
+            background-color: #262626;
+            padding: 1em;
+            border-radius: 8px;
+            margin-bottom: 1.5em;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .entrega strong {
+            color: #FF6F00;
+            display: inline-block;
+            width: 140px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>📦 Entregas Asignadas al Repartidor</h1>
 
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <th>🏁 Punto A</th>
-                <th>🎯 Punto B</th>
-                <th>📤 Recogido</th>
-                <th>📬 Entregado</th>
-                <th>⚙️ Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="entrega : ${entregas}">
-                <td th:text="${entrega.puntoA}"></td>
-                <td th:text="${entrega.puntoB}"></td>
-                <td th:text="${entrega.recogido} ? '✔️' : '❌'"></td>
-                <td th:text="${entrega.entregado} ? '✔️' : '❌'"></td>
-                <td>
-                    <form th:action="@{'/repartidor/entregas/' + ${entrega.id} + '/recogido'}" method="post" th:if="${!entrega.recogido}" style="margin-bottom: 0.5em">
-                        <button type="submit" class="btn submit-btn">📦 Marcar Recogido</button>
-                    </form>
-                    <form th:action="@{'/repartidor/entregas/' + ${entrega.id} + '/entregado'}" method="post" th:if="${entrega.recogido and !entrega.entregado}">
-                        <button type="submit" class="btn edit-btn">✅ Marcar Entregado</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<header>
+    <div class="left-header">
+        <div class="logo">FlashBox</div>
+        <div class="menu-icon">
+            <div></div><div></div><div></div>
+        </div>
+    </div>
+    <div class="usuario-header">
+        <div th:if="${session.usuario != null}">
+            <form action="/logout" method="get" style="display:inline">
+                <button type="submit" class="btn">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<div class="contenedor">
+    <h1>Entregas Asignadas</h1>
+
+    <div th:if="${entregas.isEmpty()}">
+        <p>No hay entregas pendientes.</p>
+    </div>
+
+    <div th:each="entrega : ${entregas}" class="entrega">
+        <div>
+            <strong>ID de entrega:</strong>
+            <span th:text="${entrega.id}">123</span>
+        </div>
+        <div>
+            <strong>Pedido ID:</strong>
+            <span th:if="${entrega.pedido != null}" th:text="${entrega.pedido.id}">456</span>
+            <span th:if="${entrega.pedido == null}">N/A</span>
+        </div>
+        <div>
+            <strong>Cliente:</strong>
+            <span th:if="${entrega.pedido != null and entrega.pedido.cliente != null}"
+                  th:text="${entrega.pedido.cliente.nombre}">Juan</span>
+            <span th:if="${entrega.pedido == null or entrega.pedido.cliente == null}">N/A</span>
+        </div>
+        <div>
+            <strong>Dirección:</strong>
+            <span th:if="${entrega.pedido != null and entrega.pedido.cliente != null}"
+                  th:text="${entrega.pedido.cliente.direccion}">Calle Falsa 123</span>
+            <span th:if="${entrega.pedido == null or entrega.pedido.cliente == null}">N/A</span>
+        </div>
+        <div>
+            <strong>Estado:</strong>
+            <span th:if="${entrega.entregado}">ENTREGADO</span>
+            <span th:if="${!entrega.entregado and entrega.recogido}">EN CAMINO</span>
+            <span th:if="${!entrega.recogido and !entrega.entregado}">PENDIENTE</span>
+        </div>
+        <form th:action="@{'/repartidor/entregas/' + ${entrega.id} + '/recogido'}" method="post" th:if="${!entrega.recogido}">
+            <button type="submit" class="btn">Marcar como recogido</button>
+        </form>
+        <form th:action="@{'/repartidor/entregas/' + ${entrega.id} + '/entregado'}" method="post" th:if="${entrega.recogido and !entrega.entregado}">
+            <button type="submit" class="btn">Marcar como entregado</button>
+        </form>
+    </div>
 </div>
+
 </body>
 </html>

@@ -69,4 +69,14 @@ public class ServicioEntrega {
     public void setRepartidor(Repartidor repartidor) {
         this.repartidor = repartidor;
     }
+
+	public ServicioEntrega getPedido() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getCliente() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
