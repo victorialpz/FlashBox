@@ -82,6 +82,7 @@ public class RegController {
 
 			repartidorDAO.save(repartidor);
 		}
+	
 		}
 
 		return "redirect:/login";
