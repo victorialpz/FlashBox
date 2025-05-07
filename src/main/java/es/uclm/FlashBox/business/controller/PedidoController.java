@@ -67,16 +67,44 @@ public class PedidoController {
         pedido.setItemsSeleccionados(itemsUnicos);
 
 
+        pedido.setItemsSeleccionados(itemsUnicos);
+
         pedido.setCliente(cliente);
         pedido.setRestaurante(restaurante);
         pedido.setDireccionEntrega(direccionEntrega);
+        pedido.setPagado(false); // Pedido aún no pagado
+
+        pedidoDAO.save(pedido);
+
+        // Redirigir a la página de pago
+        return "redirect:/cliente/pedido/pago/" + pedido.getId();
+    }
+    
+    @GetMapping("/pago/{pedidoId}")
+    public String mostrarPaginaPago(@PathVariable Long pedidoId, Model model) {
+        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+        if (pedido == null || pedido.isPagado()) {
+            return "redirect:/error";
+        }
+
+        model.addAttribute("pedido", pedido);
+        return "pago"; // Vista para la página de pago
+    }
+    @PostMapping("/pagar/{pedidoId}")
+    public String confirmarPago(@PathVariable Long pedidoId, Model model) {
+        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+        if (pedido == null || pedido.isPagado()) {
+            return "redirect:/error";
+        }
+
+        // Confirmar el pago
         pedido.setPagado(true);
 
         // Selección automática de repartidor
         Repartidor repartidor = seleccionarRepartidorMasEficiente();
         ServicioEntrega servicio = new ServicioEntrega();
-        servicio.setPuntoA(restaurante.getDireccion());
-        servicio.setPuntoB(direccionEntrega);
+        servicio.setPuntoA(pedido.getRestaurante().getDireccion());
+        servicio.setPuntoB(pedido.getDireccionEntrega());
         servicio.setRepartidor(repartidor);
         servicio.setEntregado(false);
 
@@ -86,7 +114,7 @@ public class PedidoController {
         pedidoDAO.save(pedido);
 
         model.addAttribute("repartidor", repartidor);
-        return "pedido_confirmado";
+        return "pedido_confirmado"; // Vista para confirmar el pedido
     }
     private Repartidor seleccionarRepartidorMasEficiente() {
         return repartidorDAO.findAll().stream()
