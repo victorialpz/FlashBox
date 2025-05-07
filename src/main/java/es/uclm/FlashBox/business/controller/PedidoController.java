@@ -116,6 +116,23 @@ public class PedidoController {
         model.addAttribute("repartidor", repartidor);
         return "pedido_confirmado"; // Vista para confirmar el pedido
     }
+    @PostMapping("/guardarMetodoPago/{pedidoId}")
+    public String guardarMetodoPago(@PathVariable Long pedidoId, @RequestParam String titularTarjeta, 
+                                     @RequestParam String numeroTarjeta, Model model) {
+        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+        if (pedido == null) {
+            return "redirect:/error";
+        }
+
+        System.out.println("Método de pago guardado:");
+        System.out.println("Titular: " + titularTarjeta);
+        System.out.println("Número de Tarjeta: " + numeroTarjeta);
+
+        
+
+        model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
+        return "redirect:/cliente/pedido/pago/" + pedidoId;
+    }
     private Repartidor seleccionarRepartidorMasEficiente() {
         return repartidorDAO.findAll().stream()
                 .sorted(Comparator.comparingInt(Repartidor::getEficiencia).reversed())

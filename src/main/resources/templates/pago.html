@@ -33,19 +33,59 @@
         .btn:hover {
             background-color: #e69500;
         }
+		.form-group {
+		            margin-bottom: 1em;
+		        }
+		        label {
+		            display: block;
+		            margin-bottom: 0.5em;
+		            font-weight: bold;
+		        }
+		        input {
+		            width: 100%;
+		            padding: 0.5em;
+		            border: 1px solid #FFA500;
+		            border-radius: 8px;
+		            background-color: #2e2e2e;
+		            color: #FFA500;
+		        }
+		        .success-message {
+		            color: #00FF00;
+		            font-weight: bold;
+		            margin-bottom: 1em;
+		        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>💳 Pasarela de Pago</h1>
-    <p>Pedido para: <strong th:text="${pedido.cliente.nombre}">Cliente</strong></p>
-    <p>Dirección: <span th:text="${pedido.direccionEntrega}">Dirección</span></p>
+	<div class="container">
+	    <h1>💳 Pasarela de Pago</h1>
+	    <p>Pedido para: <strong th:text="${pedido.cliente.nombre}">Cliente</strong></p>
+	    <p>Dirección: <span th:text="${pedido.direccionEntrega}">Dirección</span></p>
+		
+		<!-- Mostrar mensaje de éxito si existe -->
+		   <div th:if="${mensajeExito}" class="success-message">
+		       <p th:text="${mensajeExito}"></p>
+		   </div>
 
-    <form th:action="@{'/cliente/pedido/pagar/' + ${pedido.id}}" method="post">
-        <button type="submit" class="btn">✅ Confirmar pago</button>
-    </form>
-</div>
+	    <!-- Formulario para guardar el método de pago -->
+	    <form th:action="@{'/cliente/pedido/guardarMetodoPago/' + ${pedido.id}}" method="post">
+	        <div class="form-group">
+	            <label for="titularTarjeta">Titular de la Tarjeta:</label>
+	            <input type="text" id="titularTarjeta" name="titularTarjeta" placeholder="Nombre del titular" required>
+	        </div>
+	        <div class="form-group">
+	            <label for="numeroTarjeta">Número de la Tarjeta:</label>
+	            <input type="number" id="numeroTarjeta" name="numeroTarjeta" placeholder="1234 5678 9012 3456" pattern="\d{16}" maxlength="16" required>
+	        </div>
+	        <button type="submit" class="btn">💾 Guardar Método de Pago</button>
+	    </form>
+
+	    <!-- Botón para confirmar el pago -->
+	    <form th:action="@{'/cliente/pedido/pagar/' + ${pedido.id}}" method="post">
+	        <button type="submit" class="btn">✅ Confirmar Pago</button>
+	    </form>
+	</div>
 
 </body>
 </html>
