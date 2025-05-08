@@ -47,14 +47,21 @@ public class HomeController {
 
 	@GetMapping("/inicio")
 	public String inicioCliente(HttpSession session, Model model) {
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-		if (usuario == null || usuario.getRol() != Rol.CLIENTE) {
-			return "redirect:/login";
-		}
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-		List<Restaurante> restaurantes = restauranteDAO.findAll();
-		model.addAttribute("restaurantes", restaurantes);
-		return "home";
+	    if (usuario == null || usuario.getRol() != Rol.CLIENTE) {
+	        return "redirect:/login";
+	    }
+
+	    List<Restaurante> restaurantes = restauranteDAO.findAll(); 
+
+	    model.addAttribute("usuario", usuario);
+	    model.addAttribute("restaurantes", restaurantes);
+	  
+	    
+
+	    return "inicio";
 	}
+
 }

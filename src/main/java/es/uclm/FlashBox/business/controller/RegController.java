@@ -144,7 +144,8 @@ public class RegController {
 
 	@GetMapping("/logout")
 	public String cerrarSesion(HttpSession session) {
+		System.out.println("estoy en log out");
 		session.invalidate();
-		return "redirect:/login";
+		return "home";
 	}
 }

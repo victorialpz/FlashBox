@@ -127,19 +127,27 @@
 
     <h2>🔍 Buscar Restaurante</h2>
     <form method="get" action="/buscar" class="busqueda-form" style="margin-bottom: 2em; display: flex; gap: 1em;">
-        <input type="text" name="nombre" placeholder="Introduce nombre de restaurante..." />
-        <button type="submit" class="favoritos-btn">Buscar</button>
-		<form action="/home" method="get" class="busqueda-form" style="display:flex;gap:1em;">
-	    	<input  type="text"   name="nombre" th:value="${filtroNombre}" placeholder="Restaurante…" />
-			<select name="tipo"   class="favoritos-btn" style="background:#1e1e1e;color:#FFA500;border:none;">
-				<option th:value="" >Todos los tipos</option>
-				<option th:each="cat : ${categorias}"
-			            th:value="${cat}" th:text="${cat}"
-			            th:selected="${cat == filtroTipo}">Tipo</option>
-			</select>
-			<button type="submit" class="favoritos-btn">Buscar</button>
-		</form> :contentReference[oaicite:2]{index=2}&#8203;:contentReference[oaicite:3]{index=3}
-	</form>
+       
+        <form action="/home" method="get" class="busqueda-form" style="display:flex;gap:1em;">
+            <input  type="text"   name="nombre" th:value="${filtroNombre}" placeholder="Restaurante…" />
+            <select name="tipo" class="favoritos-btn">
+                <option value="">Todos</option>
+                <option th:each="restaurante : ${restaurantes}" 
+                        th:value="${restaurante.tipo}" 
+                        th:text="${restaurante.tipo}" 
+                        th:selected="${filtroTipo == restaurante.tipo}">
+                </option>
+            </select>
+            <button type="submit" class="favoritos-btn">Buscar</button>
+
+        </form>
+    </form>
+
+
+
+
+
+	
 	<p th:if="${mensaje}" th:text="${mensaje}" style="color: #FFA500; font-weight: bold; text-align: center;"></p>
     <h2>🍴 Restaurantes disponibles</h2>
 

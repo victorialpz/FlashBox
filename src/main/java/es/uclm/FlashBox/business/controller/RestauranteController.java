@@ -27,6 +27,7 @@ public class RestauranteController {
 
 	@GetMapping("/buscar")
 	public String buscarRestaurantes(@RequestParam("nombre") String nombre, String tipo, Model model) {
+		System.out.println("Estamos buscando restaurantes con nombre: " + nombre + " tipo: " + tipo);
 		List<Restaurante> resultados = restauranteRepository.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(nombre, tipo);
 	    model.addAttribute("restaurantes", resultados);
 
