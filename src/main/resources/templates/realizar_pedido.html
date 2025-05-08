@@ -89,10 +89,21 @@
         <input type="hidden" name="clienteId" th:value="${session.usuario.cliente.id}" />
         <input type="hidden" name="restauranteId" th:value="${restaurante.id}" />
 
-        <div class="form-group">
-            <label for="direccionEntrega">📍 Dirección de entrega</label>
-            <input type="text" id="direccionEntrega" name="direccionEntrega" required />
-        </div>
+       <div class="form-group">
+    <label for="calle">📍 Calle</label>
+    <input type="text" id="calle" name="calle" required />
+</div>
+
+<div class="form-group">
+    <label for="numero">🏠 Número</label>
+    <input type="text" id="numero" name="numero" required />
+</div>
+
+<div class="form-group">
+    <label for="piso">⬆️ Piso</label>
+    <input type="text" id="piso" name="piso" />
+</div>
+       
 
         <div class="form-group checkbox-group">
             <label>🍽️ Selecciona productos del menú:</label>

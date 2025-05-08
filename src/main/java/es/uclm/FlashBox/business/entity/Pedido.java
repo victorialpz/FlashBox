@@ -32,7 +32,42 @@ public class Pedido {
 	@ManyToOne
 	private Restaurante restaurante;
 
-	private String direccionEntrega;
+	private String calle;
+	private String numero;
+	private String piso;
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getPiso() {
+		return piso;
+	}
+
+	public void setPiso(String piso) {
+		this.piso = piso;
+	}
+
+	public EstadoPedido getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoPedido estado) {
+		this.estado = estado;
+	}
+
 	private boolean pagado;
 	
 	@Enumerated(EnumType.STRING)
@@ -73,14 +108,6 @@ public class Pedido {
 
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
-	}
-
-	public String getDireccionEntrega() {
-		return direccionEntrega;
-	}
-
-	public void setDireccionEntrega(String direccionEntrega) {
-		this.direccionEntrega = direccionEntrega;
 	}
 
 	public boolean isPagado() {

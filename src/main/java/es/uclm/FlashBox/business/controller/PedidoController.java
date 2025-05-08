@@ -37,12 +37,16 @@ public class PedidoController {
     @PostMapping("/realizar")
     public String procesarPedido(@ModelAttribute Pedido pedido, @RequestParam List<Long> itemIds,
                                   @RequestParam Long clienteId, @RequestParam Long restauranteId,
-                                  @RequestParam String direccionEntrega, Model model) {
+                                  @RequestParam String calle,
+                                  @RequestParam String numero,
+                                  @RequestParam String piso, Model model) {
 
     	System.out.println(">>> PROCESANDO PEDIDO <<<");
         System.out.println("clienteId: " + clienteId);
         System.out.println("restauranteId: " + restauranteId);
-        System.out.println("direccionEntrega: " + direccionEntrega);
+        System.out.println("calle: " + calle + ", numero: " + numero + ", piso: " + piso);
+        System.out.println("itemIds: " + itemIds);
+        
         System.out.println("itemIds: " + itemIds);
 
         if (itemIds == null || itemIds.isEmpty()) {
@@ -56,29 +60,27 @@ public class PedidoController {
             return "redirect:/error";
         }
 
-        // 🔥 Filtrar ítems duplicados y limpiar relación antes de guardar
+       
         Set<Long> idsUnicos = new HashSet<>(itemIds);
         List<ItemMenu> itemsSeleccionados = restaurante.getCartaMenu().getItems().stream()
             .filter(item -> idsUnicos.contains(item.getId()))
             .toList();
 
-        Set<ItemMenu> itemsUnicos = new LinkedHashSet<>(itemsSeleccionados);
-       
-        pedido.setItemsSeleccionados(itemsUnicos);
+        Pedido nuevoPedido = new Pedido();
+        nuevoPedido.setCliente(cliente);
+        nuevoPedido.setRestaurante(restaurante);
+        nuevoPedido.setCalle(calle);
+        nuevoPedido.setNumero(numero);
+        nuevoPedido.setPiso(piso);
+        nuevoPedido.setPagado(false);
+        nuevoPedido.setItemsSeleccionados(new LinkedHashSet<>(itemsSeleccionados));
 
-
-        pedido.setItemsSeleccionados(itemsUnicos);
-
-        pedido.setCliente(cliente);
-        pedido.setRestaurante(restaurante);
-        pedido.setDireccionEntrega(direccionEntrega);
-        pedido.setPagado(false); // Pedido aún no pagado
-
-        pedidoDAO.save(pedido);
-
-        // Redirigir a la página de pago
-        return "redirect:/cliente/pedido/pago/" + pedido.getId();
+        pedidoDAO.save(nuevoPedido); // aquí sí se genera ID
+        pedidoDAO.flush();
+        System.out.println("Pedido guardado con ID: " + nuevoPedido.getId());
+        return "redirect:/cliente/pedido/pago/" + nuevoPedido.getId();
     }
+    
     
     @GetMapping("/pago/{pedidoId}")
     public String mostrarPaginaPago(@PathVariable Long pedidoId, Model model) {
@@ -104,7 +106,7 @@ public class PedidoController {
         Repartidor repartidor = seleccionarRepartidorMasEficiente();
         ServicioEntrega servicio = new ServicioEntrega();
         servicio.setPuntoA(pedido.getRestaurante().getDireccion());
-        servicio.setPuntoB(pedido.getDireccionEntrega());
+        servicio.setPuntoB(pedido.getCalle());
         servicio.setRepartidor(repartidor);
         servicio.setEntregado(false);
 

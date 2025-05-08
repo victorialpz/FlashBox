@@ -61,7 +61,8 @@
 	<div class="container">
 	    <h1>💳 Pasarela de Pago</h1>
 	    <p>Pedido para: <strong th:text="${pedido.cliente.nombre}">Cliente</strong></p>
-	    <p>Dirección: <span th:text="${pedido.direccionEntrega}">Dirección</span></p>
+	    <p>Dirección: <span th:text="${pedido.calle + ' Nº ' + pedido.numero + ', Piso ' + pedido.piso}">Dirección</span>
+	    
 		
 		<!-- Mostrar mensaje de éxito si existe -->
 		   <div th:if="${mensajeExito}" class="success-message">

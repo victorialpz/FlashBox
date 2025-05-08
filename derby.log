@@ -1,12 +1,12 @@
 ----------------------------------------------------------------
-Thu May 08 13:12:03 CEST 2025:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-0196-af98-6668-0000014f2028 
-on database directory C:\Users\tgdan\git\FlashBox\derbyDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
-Loaded from file:/C:/Users/tgdan/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
-java.vendor=Eclipse Adoptium
-java.runtime.version=21.0.6+7-LTS
-user.dir=C:\Users\tgdan\git\FlashBox
-os.name=Windows 11
+Thu May 08 17:47:10 CEST 2025:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-0196-b094-45c9-000001fb1370 
+on database directory C:\Users\Lola\git\Flashbox\FlashBox\derby with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@11a4022a 
+Loaded from file:/C:/Users/Lola/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=24+36-3646
+user.dir=C:\Users\Lola\git\Flashbox\FlashBox
+os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
