@@ -75,6 +75,7 @@
     </div>
 
     <div class="login-right">
+		
         <h2>🔒 Accede a tu cuenta</h2>
 
         <form th:action="@{/login}" method="post" class="form">
@@ -94,10 +95,11 @@
             <p th:if="${error}" th:text="${error}" style="color:#ef4444;margin-top:1rem;"></p>
 
             <div class="form-footer">
-                <a href="/registro">Crear cuenta</a>
-                <a href="#">¿Has olvidado tu usuario?</a>
+                <a href="/registro" class="btn" style="margin-bottom: 1em; display: inline-block; background:#8ab4f8; color:#121212; padding:0.5em 1.2em; border-radius:6px; text-decoration:none;">📝Crear Cuenta</a>
+				<a href="/home" class="btn" style="margin-bottom: 1em; display: inline-block; background:#8ab4f8; color:#121212; padding:0.5em 1.2em; border-radius:6px; text-decoration:none;">🏠 Volver al inicio</a>
             </div>
         </form>
+
     </div>
 
 </div>
