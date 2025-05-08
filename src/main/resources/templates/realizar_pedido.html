@@ -99,7 +99,8 @@
             <div th:each="item : ${items}">
                 <label>
                     <input type="checkbox" name="itemIds" th:value="${item.id}" />
-                    <span th:text="${item.nombre} + ' - ' + item.precio + ' €'"></span>
+					<span th:text="${item.nombre}">Nombre del producto</span> - 
+					<span th:text="${#numbers.formatDecimal(item.precio, 1, 2)}">0.00</span> €
                 </label>
             </div>
         </div>

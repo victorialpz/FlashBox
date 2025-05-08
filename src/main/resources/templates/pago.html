@@ -64,9 +64,9 @@
 	    <p>Dirección: <span th:text="${pedido.direccionEntrega}">Dirección</span></p>
 		
 		<!-- Mostrar mensaje de éxito si existe -->
-		<div th:if="${mensaje}" class="success-message">
-		    <p th:text="${mensaje}"></p>
-		</div>
+		   <div th:if="${mensajeExito}" class="success-message">
+		       <p th:text="${mensajeExito}"></p>
+		   </div>
 
 	    <!-- Formulario para guardar el método de pago -->
 	    <form th:action="@{'/cliente/pedido/guardarMetodoPago/' + ${pedido.id}}" method="post">
