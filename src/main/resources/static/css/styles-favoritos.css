@@ -1,0 +1,108 @@
+body {
+           font-family: 'Segoe UI', sans-serif;
+           background-color: #121212;
+           color: #FFA500;
+           margin: 0;
+           padding: 0;
+       }
+
+       header {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           background-color: #1e1e1e;
+           padding: 1em 2em;
+       }
+
+       .left-header {
+           display: flex;
+           align-items: center;
+           gap: 1em;
+       }
+
+       .logo {
+           font-size: 1.8em;
+           font-weight: bold;
+           color: #FF6F00;
+       }
+
+       .favoritos-btn {
+           background-color: #FFA500;
+           color: black;
+           border: none;
+           padding: 0.5em 1em;
+           border-radius: 8px;
+           font-weight: bold;
+           cursor: pointer;
+           margin-left: 1em;
+           text-decoration: none;
+       }
+
+       .favoritos-btn:hover {
+           background-color: #e69500;
+       }
+
+	   main {
+	       padding: 2em;
+	       display: flex;
+	       flex-direction: column;
+	       align-items: center; /* Centra las tarjetas horizontalmente */
+	   }
+
+       h1 {
+           color: #FFA500;
+           text-align: center;
+       }
+
+	   .restaurant-card {
+	       background-color: #1e1e1e;
+	       border-radius: 12px;
+	       padding: 1em 1.5em;
+	       margin: 1em 0;
+	       width: 50%; /* Ajusta el ancho según prefieras */
+	       display: flex;
+	       justify-content: space-between;
+	       align-items: center;
+	       box-sizing: border-box;
+	   }
+	   .restaurant-info {
+	       display: flex;
+	       flex-direction: column;
+	   }
+
+       .restaurant-name {
+           font-weight: bold;
+           font-size: 1.3em;
+           color: #FFA500;
+       }
+
+       .restaurant-address {
+           font-size: 0.95em;
+           color: #ccc;
+       }
+
+	   .actions {
+	       display: flex;
+	       gap: 1em;
+	       margin-left: auto; /* Empuja las acciones a la derecha */
+	   }
+
+       .btn {
+           background-color: #FFA500;
+           color: black;
+           border: none;
+           padding: 0.5em 1em;
+           border-radius: 8px;
+           text-decoration: none;
+           font-weight: bold;
+           cursor: pointer;
+       }
+
+       .btn:hover {
+           background-color: #e69500;
+       }
+
+       form {
+           margin: 0;
+       }
+	   

@@ -3,106 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Menú del Restaurante</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #121212;
-            color: #FFA500;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #1e1e1e;
-            padding: 1em 2em;
-            position: relative;
-        }
-        .left-header {
-            display: flex;
-            align-items: center;
-            gap: 1em;
-        }
-        .logo {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #FF6F00;
-        }
-        .menu-icon {
-            width: 36px;
-            height: 36px;
-            background-color: #fff;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .menu-icon div {
-            width: 20px;
-            height: 2px;
-            background-color: #333;
-            margin: 3px 0;
-        }
-        .usuario-header {
-            position: absolute;
-            top: 1em;
-            right: 2em;
-        }
-        main {
-            padding: 2em;
-        }
-        h1, h2 {
-            color: #FFA500;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            background-color: #1e1e1e;
-            margin-bottom: 1em;
-            padding: 1em;
-            border-radius: 8px;
-        }
-        .btn {
-            background-color: #FFA500;
-            color: black;
-            border: none;
-            padding: 0.5em 1em;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 0.5em;
-        }
-        .btn:hover {
-            background-color: #e69500;
-        }
-        .form {
-            margin-top: 1.5em;
-        }
-        .form-input, .form-select {
-            padding: 0.5em;
-            margin: 0.5em 0;
-            border-radius: 4px;
-            border: none;
-            width: 100%;
-        }
-        .mensaje-vacio {
-            text-align: center;
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-top: 2em;
-            color: #FFA500;
-        }
-    </style>
+	<link th:href="@{/css/styles-carta.css}" rel="stylesheet"/>
 </head>
 <body>
 <header>
     <div class="left-header">
         <div class="logo">FlashBox</div>
-        <div class="menu-icon">
             <div></div>
             <div></div>
             <div></div>
@@ -110,7 +16,7 @@
     </div>
     <div class="usuario-header">
         <form th:if="${session.usuario != null}" action="/logout" method="get" style="display:inline">
-            <button type="submit" class="btn">Cerrar sesión</button>
+            <button type="submit" class="btn">❌Cerrar sesión</button>
         </form>
     </div>
 </header>
@@ -150,7 +56,9 @@
 </main>
 		<div th:if="${session.usuario != null and session.usuario.rol.name() == 'CLIENTE'}" style="margin-top: 2em;">
     <form th:action="@{/cliente/pedido/realizar/{restauranteId}(restauranteId=${restaurante.id})}" method="get">
-        <button type="submit" class="btn">🛒 Realizar Pedido</button>
+		<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+		    <button type="submit" class="btn">🛒 Realizar Pedido</button>
+		</div>
     </form>
 </div>
 </body>

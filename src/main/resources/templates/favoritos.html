@@ -3,111 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>⭐ Favoritos</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #121212;
-            color: #FFA500;
-            margin: 0;
-            padding: 0;
-        }
+	<link th:href="@{/css/styles-carta.css}" rel="stylesheet"/>
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #1e1e1e;
-            padding: 1em 2em;
-        }
-
-        .left-header {
-            display: flex;
-            align-items: center;
-            gap: 1em;
-        }
-
-        .logo {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #FF6F00;
-        }
-
-        .favoritos-btn {
-            background-color: #FFA500;
-            color: black;
-            border: none;
-            padding: 0.5em 1em;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-left: 1em;
-            text-decoration: none;
-        }
-
-        .favoritos-btn:hover {
-            background-color: #e69500;
-        }
-
-        main {
-            padding: 2em;
-        }
-
-        h1 {
-            color: #FFA500;
-            text-align: center;
-        }
-
-        .restaurant-card {
-            background-color: #1e1e1e;
-            border-radius: 12px;
-            padding: 1em 1.5em;
-            margin: 1em auto;
-            width: 80%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .restaurant-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .restaurant-name {
-            font-weight: bold;
-            font-size: 1.3em;
-            color: #FFA500;
-        }
-
-        .restaurant-address {
-            font-size: 0.95em;
-            color: #ccc;
-        }
-
-        .actions {
-            display: flex;
-            gap: 1em;
-        }
-
-        .btn {
-            background-color: #FFA500;
-            color: black;
-            border: none;
-            padding: 0.5em 1em;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #e69500;
-        }
-
-        form {
-            margin: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -123,19 +20,19 @@
 <main>
     <h1>⭐ Tus Restaurantes Favoritos</h1>
 
-    <div th:each="r : ${favoritos}" class="restaurant-card">
-        <div class="restaurant-info">
-            <div class="restaurant-name" th:text="${r.nombre}">Nombre</div>
-            <div class="restaurant-address" th:text="${r.direccion}">Dirección</div>
-        </div>
-        <div class="actions">
-            <a th:href="@{'/restaurante/menu/' + ${r.id}}" class="btn">📋 Ver Menú</a>
-            <form th:action="@{/cliente/favoritos/eliminar}" method="post">
-                <input type="hidden" name="restauranteId" th:value="${r.id}" />
-                <button type="submit" class="btn">🗑️ Eliminar</button>
-            </form>
-        </div>
-    </div>
+	<div th:each="r : ${favoritos}" class="restaurant-card">
+	    <div class="restaurant-info">
+	        <div class="restaurant-name" th:text="${r.nombre}">Nombre</div>
+	        <div class="restaurant-address" th:text="${r.direccion}">Dirección</div>
+	    </div>
+	    <div class="actions">
+	        <a th:href="@{'/restaurante/menu/' + ${r.id}}" class="btn">📋 Ver Menú</a>
+	        <form th:action="@{/cliente/favoritos/eliminar}" method="post" style="display:inline;">
+	            <input type="hidden" name="restauranteId" th:value="${r.id}" />
+	            <button type="submit" class="btn">🗑️ Eliminar</button>
+	        </form>
+	    </div>
+	</div>
 </main>
 </body>
 </html>
