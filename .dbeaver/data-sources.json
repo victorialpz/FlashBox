@@ -1,14 +1,14 @@
 {
 	"folders": {},
 	"connections": {
-		"derby-1961b9ff9fb-8d4071e6e656fb6": {
+		"derby-196af1d104c-264546b7b88c5f60": {
 			"provider": "generic",
 			"driver": "derby",
-			"name": "derbyDB 2",
+			"name": "derbyDB",
 			"save-password": true,
 			"configuration": {
-				"database": "C:\\Users\\lopez\\git\\FB\\FB\\derbyDB",
-				"url": "jdbc:derby:C:\\Users\\lopez\\git\\FB\\FB\\derbyDB",
+				"database": "C:\\Users\\tgdan\\git\\FlashBox\\derbyDB",
+				"url": "jdbc:derby:C:\\Users\\tgdan\\git\\FlashBox\\derbyDB",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": true,

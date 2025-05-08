@@ -124,11 +124,21 @@ public class PedidoController {
             return "redirect:/error";
         }
 
+        Usuario usuario = pedido.getCliente().getUsuario(); // Obtener el usuario asociado al cliente
+        if (usuario == null) {
+            return "redirect:/error";
+        }
+
+        // Asignar los valores de la tarjeta al usuario
+        usuario.setTitularTarjeta(titularTarjeta);
+        usuario.setNumeroTarjeta(Long.parseLong(numeroTarjeta));
+
+        // Guardar el usuario actualizado en la base de datos
+        clienteDAO.save(pedido.getCliente()); // Esto debería guardar el usuario también debido a la relación
+
         System.out.println("Método de pago guardado:");
         System.out.println("Titular: " + titularTarjeta);
         System.out.println("Número de Tarjeta: " + numeroTarjeta);
-
-        
 
         model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
         return "redirect:/cliente/pedido/pago/" + pedidoId;
