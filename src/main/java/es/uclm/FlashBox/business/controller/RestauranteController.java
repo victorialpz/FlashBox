@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.uclm.FlashBox.business.persistence.RestauranteDAO;
-
 import es.uclm.FlashBox.business.entity.Restaurante;
 
 @Controller
@@ -22,23 +21,27 @@ public class RestauranteController {
 	public String listarRestaurantes(Model model) {
 		List<Restaurante> restaurantes = restauranteRepository.findAll();
 		model.addAttribute("restaurantes", restaurantes);
-		return "lista_restaurantes"; // Se corresponde con el archivo lista_restaurantes.html
+		return "lista_restaurantes";
 	}
 
 	@GetMapping("/buscar")
-	public String buscarRestaurantes(@RequestParam("nombre") String nombre, String tipo, Model model) {
+	public String buscarRestaurantes(@RequestParam("nombre") String nombre, @RequestParam("tipo") String tipo,
+			Model model) {
+		if ((nombre == null || nombre.isBlank()) && (tipo == null || tipo.isBlank())) {
+			model.addAttribute("mensaje", "Introduce al menos un criterio de búsqueda.");
+			return "inicio";
+		}
+
 		System.out.println("Estamos buscando restaurantes con nombre: " + nombre + " tipo: " + tipo);
-		List<Restaurante> resultados = restauranteRepository.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(nombre, tipo);
-	    model.addAttribute("restaurantes", resultados);
+		List<Restaurante> resultados = restauranteRepository
+				.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(nombre, tipo);
 
-	    if (resultados.isEmpty()) {
-	        model.addAttribute("mensaje", "No se encontraron restaurantes con ese nombre.");
-	    }
+		model.addAttribute("restaurantes", resultados);
 
-	    return "inicio";
+		if (resultados.isEmpty()) {
+			model.addAttribute("mensaje", "No se encontraron restaurantes con ese nombre o tipo.");
+		}
+
+		return "inicio";
 	}
-
-
-
-
 }

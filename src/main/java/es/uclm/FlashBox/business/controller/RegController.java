@@ -8,144 +8,132 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import es.uclm.FlashBox.business.Services.UsuarioService;
 
 @Controller
 public class RegController {
 
-	@Autowired
-	private UsuarioDAO usuarioDAO;
+    @Autowired private UsuarioDAO usuarioDAO;
+    @Autowired private ClienteDAO clienteDAO;
+    @Autowired private RepartidorDAO repartidorDAO;
+    @Autowired private RestauranteDAO restauranteDAO;
+    @Autowired private UsuarioService usuarioService;
 
-	@Autowired
-	private ClienteDAO clienteDAO;
+    @GetMapping("/registro")
+    public String mostrarRegistro(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "registro";
+    }
 
-	@Autowired
-	private RepartidorDAO repartidorDAO;
+    @PostMapping("/registro")
+    public String registrarUsuario(@ModelAttribute Usuario usuario,
+                                   @RequestParam(required = false) String tipoRestaurante,
+                                   Model model) {
 
-	@Autowired
-	private RestauranteDAO restauranteDAO;
+        // Validar campos obligatorios (básico)
+        if (usuario.getUsername() == null || usuario.getUsername().isBlank() ||
+            usuario.getPassword() == null || usuario.getPassword().isBlank()) {
+            model.addAttribute("error", "Todos los campos son obligatorios.");
+            return "registro";
+        }
 
-	@Autowired
-	private UsuarioService usuarioService;
+        // Validación simple de duplicados por username
+        if (usuarioDAO.findAll().stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(usuario.getUsername()))) {
+            model.addAttribute("error", "El nombre de usuario ya está en uso.");
+            return "registro";
+        }
 
-	@GetMapping("/registro")
-	public String mostrarRegistro(Model model) {
-		model.addAttribute("usuario", new Usuario());
-		return "registro";
-	}
+        usuarioDAO.save(usuario);
 
-	@PostMapping("/registro")
-	public String registrarUsuario(@ModelAttribute Usuario usuario,
-			@RequestParam(required = false) String tipoRestaurante) {
-		usuarioDAO.save(usuario);
+        switch (usuario.getRol()) {
+            case RESTAURANTE -> {
+                CartaMenu carta = new CartaMenu();
+                carta.setNombre("Carta de " + usuario.getNombre());
 
-		switch (usuario.getRol()) {
-		case RESTAURANTE -> {
-			CartaMenu carta = new CartaMenu();
-			carta.setNombre("Carta de " + usuario.getNombre());
+                Restaurante restaurante = new Restaurante();
+                restaurante.setNombre(usuario.getNombre());
+                restaurante.setTelefono(usuario.getTelefono());
+                restaurante.setDireccion("Dirección pendiente");
+                restaurante.setCartaMenu(carta);
+                restaurante.setUsuario(usuario);
+                restaurante.setTipo(tipoRestaurante);
+                usuario.setRestaurante(restaurante);
 
-			Restaurante restaurante = new Restaurante();
-			restaurante.setNombre(usuario.getNombre());
-			restaurante.setTelefono(usuario.getTelefono());
-			restaurante.setDireccion("Dirección pendiente");
-			restaurante.setCartaMenu(carta);
-			restaurante.setUsuario(usuario);
-			restaurante.setTipo(tipoRestaurante); // 🔗 relación
-			usuario.setRestaurante(restaurante); // 🔁
+                restauranteDAO.save(restaurante);
+            }
 
-			restauranteDAO.save(restaurante);
-		}
+            case CLIENTE -> {
+                Cliente cliente = new Cliente();
+                cliente.setNombre(usuario.getNombre());
+                cliente.setApellidos(usuario.getApellidos());
+                cliente.setCorreo(usuario.getCorreo());
+                cliente.setUsuario(usuario);
+                usuario.setCliente(cliente);
 
-		case CLIENTE -> {
-			Cliente cliente = new Cliente();
-			cliente.setNombre(usuario.getNombre());
-			cliente.setApellidos(usuario.getApellidos());
-			cliente.setCorreo(usuario.getCorreo());
-			cliente.setUsuario(usuario); // 🔗 relación
-			usuario.setCliente(cliente); // 🔁
+                clienteDAO.save(cliente);
+            }
 
-			clienteDAO.save(cliente);
-		}
+            case REPARTIDOR -> {
+                Repartidor repartidor = new Repartidor();
+                repartidor.setNombre(usuario.getNombre());
+                repartidor.setApellidos(usuario.getApellidos());
+                repartidor.setCorreo(usuario.getCorreo());
+                repartidor.setEficiencia(100);
+                repartidor.setUsuario(usuario);
+                usuario.setRepartidor(repartidor);
 
-		case REPARTIDOR -> {
-			Repartidor repartidor = new Repartidor();
-			repartidor.setNombre(usuario.getNombre());
-			repartidor.setApellidos(usuario.getApellidos());
-			repartidor.setCorreo(usuario.getCorreo());
-			repartidor.setEficiencia(100); // valor por defecto
-			repartidor.setUsuario(usuario); // 🔗 relación
-			usuario.setRepartidor(repartidor); // 🔁
+                repartidorDAO.save(repartidor);
+            }
+        }
 
-			repartidorDAO.save(repartidor);
-		}
-	
-		}
+        return "redirect:/login";
+    }
 
-		return "redirect:/login";
-	}
+    @GetMapping("/login")
+    public String mostrarLogin() {
+        return "login";
+    }
 
-	@GetMapping("/login")
-	public String mostrarLogin() {
-		return "login";
-	}
-	@PostMapping("/login")
-	public String procesarLogin(@RequestParam("username") String username, @RequestParam("password") String password,
-	                            HttpSession session, Model model) {
+    @PostMapping("/login")
+    public String procesarLogin(@RequestParam("username") String username,
+                                 @RequestParam("password") String password,
+                                 HttpSession session, Model model) {
 
-	    try {
-	        Usuario usuario = usuarioService.autenticar(username, password);
+        try {
+            username = username.trim();
+            password = password.trim();
 
-	        if (usuario == null) {
-	            model.addAttribute("error", "Credenciales incorrectas");
-	            return "login";
-	        }
+            Usuario usuario = usuarioService.autenticar(username, password);
 
-	        usuario = usuarioDAO.findById(usuario.getId()).orElse(null);
-	        session.setAttribute("usuario", usuario);
+            if (usuario == null) {
+                model.addAttribute("error", "Credenciales incorrectas");
+                return "login";
+            }
 
-	        System.out.println("🟢 Usuario autenticado: " + usuario.getUsername());
-	        System.out.println("🔐 Rol: " + usuario.getRol());
+            usuario = usuarioDAO.findById(usuario.getId()).orElse(null);
+            session.setAttribute("usuario", usuario);
 
-	        if (usuario.getRol() == Rol.RESTAURANTE) {
-	            Restaurante r = usuario.getRestaurante();
-	            System.out.println("📦 Restaurante: " + r);
+            if (usuario.getRol() == Rol.RESTAURANTE) {
+                Restaurante r = usuario.getRestaurante();
+                if (r == null || r.getId() == null) return "redirect:/error";
+                return "redirect:/restaurante/menu/" + r.getId();
+            }
 
-	            if (r == null) {
-	                System.out.println("❌ Restaurante es null");
-	                return "redirect:/error";
-	            }
+            if (usuario.getRol() == Rol.CLIENTE) return "redirect:/inicio";
+            if (usuario.getRol() == Rol.REPARTIDOR) return "redirect:/repartidor/entregas";
 
-	            Long id = r.getId();
-	            System.out.println("📦 ID Restaurante: " + id);
+            return "redirect:/error";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/error";
+        }
+    }
 
-	            if (id == null) {
-	                System.out.println("❌ ID del restaurante es null");
-	                return "redirect:/error";
-	            }
-
-	            return "redirect:/restaurante/menu/" + id;
-	        }
-
-	        if (usuario.getRol() == Rol.CLIENTE) return "redirect:/inicio";
-	        if (usuario.getRol() == Rol.REPARTIDOR) return "redirect:/repartidor/entregas";
-
-	        return "redirect:/error";
-	    } catch (Exception e) {
-	        System.out.println("🔥 EXCEPCIÓN:");
-	        e.printStackTrace();
-	        return "redirect:/error";
-	    }
-	}
-
-
-	@GetMapping("/logout")
-	public String cerrarSesion(HttpSession session) {
-		System.out.println("estoy en log out");
-		session.invalidate();
-		return "home";
-	}
+    @GetMapping("/logout")
+    public String cerrarSesion(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }

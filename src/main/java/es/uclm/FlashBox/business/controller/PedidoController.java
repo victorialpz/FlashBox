@@ -1,4 +1,3 @@
-// PedidoController.java
 package es.uclm.FlashBox.business.controller;
 
 import java.util.*;
@@ -15,140 +14,144 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/cliente/pedido")
 public class PedidoController {
 
-    @Autowired private RestauranteDAO restauranteDAO;
-    @Autowired private ClienteDAO clienteDAO;
-    @Autowired private RepartidorDAO repartidorDAO;
-    @Autowired private PedidoDAO pedidoDAO;
-    @Autowired private ServicioEntregaDAO servicioEntregaDAO;
+	@Autowired
+	private RestauranteDAO restauranteDAO;
+	@Autowired
+	private ClienteDAO clienteDAO;
+	@Autowired
+	private RepartidorDAO repartidorDAO;
+	@Autowired
+	private PedidoDAO pedidoDAO;
+	@Autowired
+	private ServicioEntregaDAO servicioEntregaDAO;
 
-    @GetMapping("/realizar/{restauranteId}")
-    public String mostrarFormularioPedido(@PathVariable Long restauranteId, Model model) {
-        Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
-        if (restaurante == null || restaurante.getCartaMenu() == null) {
-            return "redirect:/error";
-        }
+	@GetMapping("/realizar/{restauranteId}")
+	public String mostrarFormularioPedido(@PathVariable Long restauranteId, Model model, HttpSession session) {
+		Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
+		if (restaurante == null || restaurante.getCartaMenu() == null) {
+			return "redirect:/error";
+		}
 
-        model.addAttribute("restaurante", restaurante);
-        model.addAttribute("items", restaurante.getCartaMenu().getItems());
-        model.addAttribute("pedido", new Pedido());
-        return "realizar_pedido";
-    }
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		if (usuario == null || usuario.getCliente() == null) {
+			return "redirect:/login";
+		}
 
-    @PostMapping("/realizar")
-    public String procesarPedido(@ModelAttribute Pedido pedido, @RequestParam List<Long> itemIds,
-                                  @RequestParam Long clienteId, @RequestParam Long restauranteId,
-                                  @RequestParam String calle,
-                                  @RequestParam String numero,
-                                  @RequestParam String piso, Model model) {
+		model.addAttribute("restaurante", restaurante);
+		model.addAttribute("items", restaurante.getCartaMenu().getItems());
+		model.addAttribute("pedido", new Pedido());
+		return "realizar_pedido";
+	}
 
-    	System.out.println(">>> PROCESANDO PEDIDO <<<");
-        System.out.println("clienteId: " + clienteId);
-        System.out.println("restauranteId: " + restauranteId);
-        System.out.println("calle: " + calle + ", numero: " + numero + ", piso: " + piso);
-        System.out.println("itemIds: " + itemIds);
-        
-        System.out.println("itemIds: " + itemIds);
+	@PostMapping("/realizar")
+	public String procesarPedido(@ModelAttribute Pedido pedido, @RequestParam List<Long> itemIds,
+			@RequestParam Long restauranteId, @RequestParam String calle, @RequestParam String numero,
+			@RequestParam String piso, HttpSession session, Model model) {
 
-        if (itemIds == null || itemIds.isEmpty()) {
-            model.addAttribute("mensaje", "❌ Debes seleccionar al menos un producto.");
-            return "redirect:/cliente/pedido/realizar/" + restauranteId;
-        }
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		if (usuario == null || usuario.getCliente() == null) {
+			return "redirect:/login";
+		}
 
-        Cliente cliente = clienteDAO.findById(clienteId).orElse(null);
-        Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
-        if (cliente == null || restaurante == null) {
-            return "redirect:/error";
-        }
+		Cliente cliente = usuario.getCliente();
+		Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
 
-       
-        Set<Long> idsUnicos = new HashSet<>(itemIds);
-        List<ItemMenu> itemsSeleccionados = restaurante.getCartaMenu().getItems().stream()
-            .filter(item -> idsUnicos.contains(item.getId()))
-            .toList();
+		if (itemIds == null || itemIds.isEmpty() || restaurante == null) {
+			model.addAttribute("mensaje", "❌ Debes seleccionar al menos un producto.");
+			return "redirect:/cliente/pedido/realizar/" + restauranteId;
+		}
 
-        Pedido nuevoPedido = new Pedido();
-        nuevoPedido.setCliente(cliente);
-        nuevoPedido.setRestaurante(restaurante);
-        nuevoPedido.setCalle(calle);
-        nuevoPedido.setNumero(numero);
-        nuevoPedido.setPiso(piso);
-        nuevoPedido.setPagado(false);
-        nuevoPedido.setItemsSeleccionados(new LinkedHashSet<>(itemsSeleccionados));
+		Set<Long> idsUnicos = new HashSet<>(itemIds);
+		List<ItemMenu> itemsSeleccionados = restaurante.getCartaMenu().getItems().stream()
+				.filter(item -> idsUnicos.contains(item.getId())).toList();
 
-        pedidoDAO.save(nuevoPedido); // aquí sí se genera ID
-        pedidoDAO.flush();
-        System.out.println("Pedido guardado con ID: " + nuevoPedido.getId());
-        return "redirect:/cliente/pedido/pago/" + nuevoPedido.getId();
-    }
-    
-    
-    @GetMapping("/pago/{pedidoId}")
-    public String mostrarPaginaPago(@PathVariable Long pedidoId, Model model) {
-        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
-        if (pedido == null || pedido.isPagado()) {
-            return "redirect:/error";
-        }
+		Pedido nuevoPedido = new Pedido();
+		nuevoPedido.setCliente(cliente);
+		nuevoPedido.setRestaurante(restaurante);
+		nuevoPedido.setCalle(calle);
+		nuevoPedido.setNumero(numero);
+		nuevoPedido.setPiso(piso);
+		nuevoPedido.setPagado(false);
+		nuevoPedido.setItemsSeleccionados(new LinkedHashSet<>(itemsSeleccionados));
 
-        model.addAttribute("pedido", pedido);
-        return "pago"; // Vista para la página de pago
-    }
-    @PostMapping("/pagar/{pedidoId}")
-    public String confirmarPago(@PathVariable Long pedidoId, Model model) {
-        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
-        if (pedido == null || pedido.isPagado()) {
-            return "redirect:/error";
-        }
+		pedidoDAO.save(nuevoPedido);
+		pedidoDAO.flush();
 
-        // Confirmar el pago
-        pedido.setPagado(true);
+		return "redirect:/cliente/pedido/pago/" + nuevoPedido.getId();
+	}
 
-        // Selección automática de repartidor
-        Repartidor repartidor = seleccionarRepartidorMasEficiente();
-        ServicioEntrega servicio = new ServicioEntrega();
-        servicio.setPuntoA(pedido.getRestaurante().getDireccion());
-        servicio.setPuntoB(pedido.getCalle());
-        servicio.setRepartidor(repartidor);
-        servicio.setEntregado(false);
+	@GetMapping("/pago/{pedidoId}")
+	public String mostrarPaginaPago(@PathVariable Long pedidoId, Model model) {
+		Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+		if (pedido == null || pedido.isPagado()) {
+			return "redirect:/error";
+		}
 
-        servicioEntregaDAO.save(servicio);
-        pedido.setServicioEntrega(servicio);
+		model.addAttribute("pedido", pedido);
+		return "pago";
+	}
 
-        pedidoDAO.save(pedido);
+	@PostMapping("/pagar/{pedidoId}")
+	public String confirmarPago(@PathVariable Long pedidoId, Model model) {
+		Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+		if (pedido == null || pedido.isPagado()) {
+			return "redirect:/error";
+		}
 
-        model.addAttribute("repartidor", repartidor);
-        return "pedido_confirmado"; // Vista para confirmar el pedido
-    }
-    @PostMapping("/guardarMetodoPago/{pedidoId}")
-    public String guardarMetodoPago(@PathVariable Long pedidoId, @RequestParam String titularTarjeta, 
-                                     @RequestParam String numeroTarjeta, Model model) {
-        Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
-        if (pedido == null) {
-            return "redirect:/error";
-        }
+		pedido.setPagado(true);
 
-        Usuario usuario = pedido.getCliente().getUsuario(); // Obtener el usuario asociado al cliente
-        if (usuario == null) {
-            return "redirect:/error";
-        }
+		Repartidor repartidor = seleccionarRepartidorMasEficiente();
+		if (repartidor == null) {
+			model.addAttribute("mensaje", "❌ No hay repartidores disponibles.");
+			return "error";
+		}
 
-        // Asignar los valores de la tarjeta al usuario
-        usuario.setTitularTarjeta(titularTarjeta);
-        usuario.setNumeroTarjeta(Long.parseLong(numeroTarjeta));
+		ServicioEntrega servicio = new ServicioEntrega();
+		servicio.setPuntoA(pedido.getRestaurante().getDireccion());
+		servicio.setPuntoB(pedido.getCalle());
+		servicio.setRepartidor(repartidor);
+		servicio.setEntregado(false);
+		servicioEntregaDAO.save(servicio);
 
-        // Guardar el usuario actualizado en la base de datos
-        clienteDAO.save(pedido.getCliente()); // Esto debería guardar el usuario también debido a la relación
+		pedido.setServicioEntrega(servicio);
+		pedidoDAO.save(pedido);
 
-        System.out.println("Método de pago guardado:");
-        System.out.println("Titular: " + titularTarjeta);
-        System.out.println("Número de Tarjeta: " + numeroTarjeta);
+		model.addAttribute("repartidor", repartidor);
+		return "pedido_confirmado";
+	}
 
-        model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
-        return "redirect:/cliente/pedido/pago/" + pedidoId;
-    }
-    private Repartidor seleccionarRepartidorMasEficiente() {
-        return repartidorDAO.findAll().stream()
-                .sorted(Comparator.comparingInt(Repartidor::getEficiencia).reversed())
-                .findFirst()
-                .orElse(null);
-    }
+	@PostMapping("/guardarMetodoPago/{pedidoId}")
+	public String guardarMetodoPago(@PathVariable Long pedidoId, @RequestParam String titularTarjeta,
+			@RequestParam String numeroTarjeta, HttpSession session, Model model) {
+
+		Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+		if (pedido == null) {
+			return "redirect:/error";
+		}
+
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		if (usuario == null || usuario.getId() == null) {
+			return "redirect:/login";
+		}
+
+		// 🔐 ADVERTENCIA: número de tarjeta almacenado sin cifrado. En producción,
+		// cifrar.
+		usuario.setTitularTarjeta(titularTarjeta);
+		try {
+			usuario.setNumeroTarjeta(Long.parseLong(numeroTarjeta));
+		} catch (NumberFormatException e) {
+			model.addAttribute("mensaje", "Número de tarjeta inválido.");
+			return "redirect:/cliente/pedido/pago/" + pedidoId;
+		}
+
+		clienteDAO.save(pedido.getCliente());
+
+		model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
+		return "redirect:/cliente/pedido/pago/" + pedidoId;
+	}
+
+	private Repartidor seleccionarRepartidorMasEficiente() {
+		return repartidorDAO.findAll().stream().filter(Objects::nonNull)
+				.sorted(Comparator.comparingInt(Repartidor::getEficiencia).reversed()).findFirst().orElse(null);
+	}
 }

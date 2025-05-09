@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model; 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import es.uclm.FlashBox.business.entity.Pedido; // ← asegúrate de que esta línea está presente
 
 import es.uclm.FlashBox.business.entity.ServicioEntrega;
 import es.uclm.FlashBox.business.entity.Usuario;
 import es.uclm.FlashBox.business.persistence.ServicioEntregaDAO;
 import jakarta.servlet.http.HttpSession;
+import es.uclm.FlashBox.business.entity.Cliente;
 import es.uclm.FlashBox.business.entity.Repartidor;
 import es.uclm.FlashBox.business.persistence.RepartidorDAO;
 
@@ -38,15 +40,20 @@ public class ServicioEntregaController {
 
         for (ServicioEntrega e : entregas) {
             System.out.println("📦 Entrega ID: " + e.getId());
-            System.out.println(" → Pedido: " + (e.getPedido() != null ? e.getPedido().getId() : "null"));
+
             if (e.getPedido() != null && e.getPedido().getCliente() != null) {
-                System.out.println(" → Cliente: " + ((Usuario) e.getPedido().getCliente()).getNombre());
+                Pedido pedido = e.getPedido();
+                Cliente cliente = (Cliente) pedido.getCliente();
+                String nombreCliente = cliente.getUsuario() != null ? cliente.getUsuario().getNombre() : "Desconocido";
+                System.out.println(" → Pedido: " + pedido.getId());
+                System.out.println(" → Cliente: " + nombreCliente);
             }
         }
 
         model.addAttribute("entregas", entregas);
         return "entregas_repartidor";
     }
+
 
     @PostMapping("/entregas/{id}/recogido")
     public String marcarComoRecogido(@PathVariable Long id) {

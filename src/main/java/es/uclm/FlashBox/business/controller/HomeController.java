@@ -21,47 +21,41 @@ public class HomeController {
 	@Autowired
 	private RestauranteDAO restauranteDAO;
 
-	@GetMapping({"/", "/home"})
-	public String mostrarInicio(
-	        @RequestParam(required = false) String nombre,
-	        @RequestParam(required = false) String tipo,
-	        Model model) {
+	@GetMapping({ "/", "/home" })
+	public String mostrarInicio(@RequestParam(required = false) String nombre,
+			@RequestParam(required = false) String tipo, Model model) {
 
-	    List<Restaurante> restaurantes = restauranteDAO
-	            .findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase// ✅
-(
-	                    nombre == null ? "" : nombre,
-	                    tipo   == null ? "" : tipo);
+		List<Restaurante> restaurantes = restauranteDAO.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(
+				nombre == null ? "" : nombre, tipo == null ? "" : tipo);
 
-	    List<String> categorias = restauranteDAO.findAll().stream()
-	            .map(Restaurante::getTipo)
-	            .filter(Objects::nonNull).distinct().toList();
+		List<String> categorias = restauranteDAO.findAll().stream().map(Restaurante::getTipo).filter(Objects::nonNull)
+				.distinct().toList();
 
-	    model.addAttribute("restaurantes", restaurantes);
-	    model.addAttribute("categorias", categorias);
-	    model.addAttribute("filtroNombre", nombre);
-	    model.addAttribute("filtroTipo",   tipo);
-	    return "home";        // :contentReference[oaicite:0]{index=0}&#8203;:contentReference[oaicite:1]{index=1}
+		model.addAttribute("restaurantes", restaurantes);
+		model.addAttribute("categorias", categorias);
+		model.addAttribute("filtroNombre", nombre);
+		model.addAttribute("filtroTipo", tipo);
+
+		return "home"; // Vista pública de inicio
 	}
-
 
 	@GetMapping("/inicio")
 	public String inicioCliente(HttpSession session, Model model) {
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+		if (usuario == null) {
+			return "redirect:/login";
+		}
 
-	    if (usuario == null || usuario.getRol() != Rol.CLIENTE) {
-	        return "redirect:/login";
-	    }
+		if (usuario.getRol() != Rol.CLIENTE) {
+			return "redirect:/error";
+		}
 
-	    List<Restaurante> restaurantes = restauranteDAO.findAll(); 
+		List<Restaurante> restaurantes = restauranteDAO.findAll();
 
-	    model.addAttribute("usuario", usuario);
-	    model.addAttribute("restaurantes", restaurantes);
-	  
-	    
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("restaurantes", restaurantes);
 
-	    return "inicio";
+		return "inicio_cliente"; // Renombramos para diferenciar de home.html
 	}
-
 }
