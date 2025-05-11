@@ -18,44 +18,37 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private RestauranteDAO restauranteDAO;
+    @Autowired
+    private RestauranteDAO restauranteDAO;
 
-	@GetMapping({ "/", "/home" })
-	public String mostrarInicio(@RequestParam(required = false) String nombre,
-			@RequestParam(required = false) String tipo, Model model) {
+    @GetMapping({ "/", "/home" })
+    public String mostrarInicio(@RequestParam(required = false) String nombre,
+                                 @RequestParam(required = false) String tipo,
+                                 HttpSession session,
+                                 Model model) {
 
-		List<Restaurante> restaurantes = restauranteDAO.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(
-				nombre == null ? "" : nombre, tipo == null ? "" : tipo);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-		List<String> categorias = restauranteDAO.findAll().stream().map(Restaurante::getTipo).filter(Objects::nonNull)
-				.distinct().toList();
+        List<Restaurante> restaurantes = restauranteDAO.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(
+                nombre == null ? "" : nombre,
+                tipo == null ? "" : tipo
+        );
 
-		model.addAttribute("restaurantes", restaurantes);
-		model.addAttribute("categorias", categorias);
-		model.addAttribute("filtroNombre", nombre);
-		model.addAttribute("filtroTipo", tipo);
+        List<String> categorias = restauranteDAO.findAll().stream()
+                .map(Restaurante::getTipo)
+                .filter(Objects::nonNull)
+                .distinct()
+                .toList();
 
-		return "home"; // Vista pública de inicio
-	}
+        model.addAttribute("restaurantes", restaurantes);
+        model.addAttribute("categorias", categorias);
+        model.addAttribute("filtroNombre", nombre);
+        model.addAttribute("filtroTipo", tipo);
 
-	@GetMapping("/inicio")
-	public String inicioCliente(HttpSession session, Model model) {
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario != null) {
+            model.addAttribute("usuario", usuario);
+        }
 
-		if (usuario == null) {
-			return "redirect:/login";
-		}
-
-		if (usuario.getRol() != Rol.CLIENTE) {
-			return "redirect:/error";
-		}
-
-		List<Restaurante> restaurantes = restauranteDAO.findAll();
-
-		model.addAttribute("usuario", usuario);
-		model.addAttribute("restaurantes", restaurantes);
-
-		return "inicio_cliente"; // Renombramos para diferenciar de home.html
-	}
+        return "home";
+    }
 }

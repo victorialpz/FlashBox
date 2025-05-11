@@ -30,7 +30,7 @@ public class FavoritosController {
 			return "redirect:/login";
 		}
 
-		Cliente cliente = usuario.getCliente();
+		Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
 		Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
 
 		if (cliente != null && restaurante != null) {
@@ -51,7 +51,7 @@ public class FavoritosController {
 			return "redirect:/login";
 		}
 
-		Cliente cliente = usuario.getCliente();
+		Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
 		model.addAttribute("favoritos", cliente.getFavoritos());
 		return "favoritos";
 	}

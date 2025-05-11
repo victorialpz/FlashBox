@@ -3,8 +3,76 @@
   "WorkspaceRootPath": "C:\\Users\\lopez\\git\\FB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\FB\\src\\main\\resources\\static\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:FB\\src\\main\\resources\\static\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\lista_restaurantes.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\lista_restaurantes.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\inicio.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\inicio.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\home.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\home.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\favoritos.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\favoritos.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\entregas_repartidor.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\entregas_repartidor.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\editar_item.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\editar_item.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\carta_menu.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\templates\\carta_menu.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-realizar.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-realizar.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-pedidoc.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-pedidoc.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-pago.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-pago.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-lista.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-lista.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-inicio.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-inicio.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-favoritos.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-favoritos.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-entregas.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-entregas.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-carta.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main\\resources\\static\\css\\styles-carta.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,14 +111,235 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "styles.css",
-              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\FB\\src\\main\\resources\\static\\styles.css",
-              "RelativeDocumentMoniker": "FB\\src\\main\\resources\\static\\styles.css",
-              "ToolTip": "C:\\Users\\lopez\\git\\FB\\FB\\src\\main\\resources\\static\\styles.css",
-              "RelativeToolTip": "FB\\src\\main\\resources\\static\\styles.css",
+              "Title": "login.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\login.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\login.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\login.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\login.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:50.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "lista_restaurantes.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\lista_restaurantes.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\lista_restaurantes.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\lista_restaurantes.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\lista_restaurantes.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:49.429Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "inicio.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\inicio.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\inicio.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\inicio.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\inicio.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:48.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "home.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\home.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\home.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\home.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\home.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:48.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "favoritos.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\favoritos.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\favoritos.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\favoritos.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\favoritos.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:47.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "entregas_repartidor.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\entregas_repartidor.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\entregas_repartidor.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\entregas_repartidor.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\entregas_repartidor.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:46.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "editar_item.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\editar_item.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\editar_item.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\editar_item.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\editar_item.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:45.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "carta_menu.html",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\carta_menu.html",
+              "RelativeDocumentMoniker": "src\\main\\resources\\templates\\carta_menu.html",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\templates\\carta_menu.html",
+              "RelativeToolTip": "src\\main\\resources\\templates\\carta_menu.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-05-10T17:23:45.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "styles-realizar.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-realizar.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-realizar.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-realizar.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-realizar.css",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-17T16:22:43.969Z",
+              "WhenOpened": "2025-05-10T17:23:41.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "styles-pedidoc.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-pedidoc.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-pedidoc.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-pedidoc.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-pedidoc.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:40.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "styles-pago.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-pago.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-pago.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-pago.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-pago.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:39.564Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "styles-login.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-login.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-login.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-login.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-login.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:38.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "styles-lista.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-lista.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-lista.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-lista.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-lista.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:38.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "styles-inicio.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-inicio.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-inicio.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-inicio.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-inicio.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:37.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "styles-home.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-home.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-home.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-home.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-home.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:36.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "styles-favoritos.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-favoritos.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-favoritos.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-favoritos.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-favoritos.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:35.683Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "styles-entregas.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-entregas.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-entregas.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-entregas.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-entregas.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:34.593Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "styles-carta.css",
+              "DocumentMoniker": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-carta.css",
+              "RelativeDocumentMoniker": "src\\main\\resources\\static\\css\\styles-carta.css",
+              "ToolTip": "C:\\Users\\lopez\\git\\FB\\src\\main\\resources\\static\\css\\styles-carta.css",
+              "RelativeToolTip": "src\\main\\resources\\static\\css\\styles-carta.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-10T17:23:32.263Z",
               "EditorCaption": ""
             }
           ]

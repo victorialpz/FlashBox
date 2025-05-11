@@ -1,17 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\FB",
-    "\\FB\\src",
-    "\\FB\\src\\main",
-    "\\FB\\src\\main\\java\\es",
-    "\\FB\\src\\main\\java\\es\\uclm",
-    "\\FB\\src\\main\\resources",
-    "\\FB\\src\\main\\resources\\static",
-    "\\FB\\src\\main\\resources\\templates",
-    "\\FB\\src\\test\\java",
-    "\\FB\\src\\test\\java\\es"
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\resources",
+    "\\src\\main\\resources\\static",
+    "\\src\\main\\resources\\templates"
   ],
-  "SelectedNode": "\\FB\\src\\main\\resources\\application.properties",
+  "SelectedNode": "\\src\\main\\resources\\templates\\login.html",
   "PreviewInSolutionExplorer": false
 }

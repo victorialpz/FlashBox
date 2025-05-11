@@ -121,7 +121,7 @@ public class RegController {
                 return "redirect:/restaurante/menu/" + r.getId();
             }
 
-            if (usuario.getRol() == Rol.CLIENTE) return "redirect:/inicio";
+            if (usuario.getRol() == Rol.CLIENTE) return "redirect:/home";
             if (usuario.getRol() == Rol.REPARTIDOR) return "redirect:/repartidor/entregas";
 
             return "redirect:/error";
