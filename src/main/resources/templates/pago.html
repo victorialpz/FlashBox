@@ -33,12 +33,9 @@
 	    </form>
 		
 		<p th:if="${cliente.titularTarjeta != null}">
-		    Método de pago guardado: <strong th:text="${cliente.titularTarjeta}"></strong> - 
+		    Método de pago guardado en uso: <strong th:text="${cliente.titularTarjeta}"></strong> - 
 		    <span th:text="${cliente.numeroTarjeta}"></span>
 		</p>
-		<form th:action="@{'/cliente/pedido/seleccionarMetodoPago/' + ${pedido.id}}" method="post">
-		    <button type="submit" class="btn">Usar Método de Pago Guardado</button>
-		</form>
 		
 		     
 	    <!-- Botón para confirmar el pago -->
