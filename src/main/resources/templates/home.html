@@ -56,10 +56,7 @@
         <li th:each="restaurante : ${restaurantes}">
             <strong th:text="${restaurante.nombre}"></strong><br/>
             <a th:href="@{'/restaurante/menu/' + ${restaurante.id}}">Ver menú</a>
-            <form th:action="@{/cliente/favoritos/agregar}" method="post" style="display:inline">
-                <input type="hidden" name="restauranteId" th:value="${restaurante.id}" />
-                <button type="submit">⭐</button>
-            </form>
+           
         </li>
     </ul>
 </main>

@@ -28,7 +28,9 @@ public class HomeController {
                                  Model model) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-
+        if (usuario != null) {
+            return "redirect:/inicio";
+        }
         List<Restaurante> restaurantes = restauranteDAO.findByNombreContainingIgnoreCaseAndTipoContainingIgnoreCase(
                 nombre == null ? "" : nombre,
                 tipo == null ? "" : tipo
@@ -45,10 +47,35 @@ public class HomeController {
         model.addAttribute("filtroNombre", nombre);
         model.addAttribute("filtroTipo", tipo);
 
-        if (usuario != null) {
-            model.addAttribute("usuario", usuario);
-        }
+
 
         return "home";
     }
+    @GetMapping("/inicio")
+    public String mostrarInicioAutenticado(HttpSession session, Model model) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        // Si no hay usuario en la sesión, redirigir a la página de inicio
+        if (usuario == null) {
+            return "redirect:/home";
+        }
+
+        // Cargar los restaurantes y las categorías
+        List<Restaurante> restaurantes = restauranteDAO.findAll();
+        List<String> categorias = restauranteDAO.findAll().stream()
+                .map(Restaurante::getTipo)
+                .filter(Objects::nonNull)
+                .distinct()
+                .toList();
+
+        // Añadir los datos al modelo
+        model.addAttribute("restaurantes", restaurantes);
+        model.addAttribute("categorias", categorias);
+        model.addAttribute("usuario", usuario);
+        
+
+        return "inicio"; // Renderiza inicio.html
+    }
+    
+    
 }
