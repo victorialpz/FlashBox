@@ -45,15 +45,22 @@ public class FavoritosController {
 
 	@GetMapping
 	public String verFavoritos(HttpSession session, Model model) {
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-		if (usuario == null || usuario.getCliente() == null) {
-			return "redirect:/login";
-		}
+	    if (usuario == null || usuario.getCliente() == null) {
+	        return "redirect:/login";
+	    }
 
-		Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
-		model.addAttribute("favoritos", cliente.getFavoritos());
-		return "favoritos";
+	    Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
+
+	    if (cliente == null || cliente.getFavoritos() == null) {
+	        model.addAttribute("mensaje", "No tienes restaurantes favoritos.");
+	  
+	    } else {
+	        model.addAttribute("favoritos", cliente.getFavoritos());
+	    }
+
+	    return "favoritos";
 	}
 
 	@PostMapping("/eliminar")

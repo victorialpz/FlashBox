@@ -48,3 +48,18 @@ body {
 	            font-weight: bold;
 	            margin-bottom: 1em;
 	        }
+			.favoritos-btn {
+			       background-color: #FFA500;
+			       color: black;
+			       border: none;
+			       padding: 0.5em 1em;
+			       border-radius: 8px;
+			       font-weight: bold;
+			       cursor: pointer;
+			       margin-left: 1em;
+			       text-decoration: none;
+			   }
+
+			   .favoritos-btn:hover {
+			       background-color: #e69500;
+			   }

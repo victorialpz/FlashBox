@@ -34,6 +34,7 @@
 	    <!-- Botón para confirmar el pago -->
 	    <form th:action="@{'/cliente/pedido/pagar/' + ${pedido.id}}" method="post">
 	        <button type="submit" class="btn">✅ Confirmar Pago</button>
+			<a href="/inicio" class="favoritos-btn">🏠 Volver a Inicio</a>
 	    </form>
 	</div>
 

@@ -14,8 +14,10 @@
             <div></div>
         </div>
     </div>
+	
     <div class="usuario-header">
         <form th:if="${session.usuario != null}" action="/logout" method="get" style="display:inline">
+			<a href="/inicio" class="favoritos-btn">🏠 Volver a Inicio</a>
             <button type="submit" class="btn">❌Cerrar sesión</button>
         </form>
     </div>
