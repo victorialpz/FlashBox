@@ -25,6 +25,8 @@ public class Cliente {
 	private Usuario usuario;
 	@ManyToMany
 	private List<Restaurante> favoritos = new ArrayList<>();
+	private String titularTarjeta;
+	private Long numeroTarjeta;
 
 
 	public Cliente() {
@@ -82,5 +84,21 @@ public class Cliente {
 	public void setFavoritos(List<Restaurante> favoritos) {
 	    this.favoritos = favoritos;
 	}
+	public String getTitularTarjeta() {
+        return titularTarjeta;
+    }
+
+    public void setTitularTarjeta(String titularTarjeta) {
+        this.titularTarjeta = titularTarjeta;
+    }
+
+    public Long getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
+
+    public void setNumeroTarjeta(Long numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
+    }
+
 
 }

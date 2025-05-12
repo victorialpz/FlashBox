@@ -24,8 +24,6 @@ public class Usuario {
 	private String telefono;
 	private String username;
 	private String password;
-	private String titularTarjeta;
-	private Long numeroTarjeta;
 
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Cliente cliente;
@@ -130,20 +128,5 @@ public class Usuario {
 		this.repartidor = repartidor;
 	}
 	
-	public String getTitularTarjeta() {
-        return titularTarjeta;
-    }
-
-    public void setTitularTarjeta(String titularTarjeta) {
-        this.titularTarjeta = titularTarjeta;
-    }
-
-    public Long getNumeroTarjeta() {
-        return numeroTarjeta;
-    }
-
-    public void setNumeroTarjeta(Long numeroTarjeta) {
-        this.numeroTarjeta = numeroTarjeta;
-    }
 
 }

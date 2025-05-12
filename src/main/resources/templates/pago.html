@@ -30,7 +30,8 @@
 	        </div>
 	        <button type="submit" class="btn">💾 Guardar Método de Pago</button>
 	    </form>
-
+		
+		     
 	    <!-- Botón para confirmar el pago -->
 	    <form th:action="@{'/cliente/pedido/pagar/' + ${pedido.id}}" method="post">
 	        <button type="submit" class="btn">✅ Confirmar Pago</button>

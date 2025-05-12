@@ -122,33 +122,40 @@ public class PedidoController {
 
 	@PostMapping("/guardarMetodoPago/{pedidoId}")
 	public String guardarMetodoPago(@PathVariable Long pedidoId, @RequestParam String titularTarjeta,
-			@RequestParam String numeroTarjeta, HttpSession session, Model model) {
+	        @RequestParam String numeroTarjeta, HttpSession session, Model model) {
 
-		Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
-		if (pedido == null) {
-			return "redirect:/error";
-		}
+	    Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+	    if (pedido == null) {
+	        return "redirect:/error";
+	    }
 
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		if (usuario == null || usuario.getId() == null) {
-			return "redirect:/login";
-		}
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    if (usuario == null || usuario.getId() == null) {
+	        return "redirect:/login";
+	    }
 
-		// 🔐 ADVERTENCIA: número de tarjeta almacenado sin cifrado. En producción,
-		// cifrar.
-		usuario.setTitularTarjeta(titularTarjeta);
-		try {
-			usuario.setNumeroTarjeta(Long.parseLong(numeroTarjeta));
-		} catch (NumberFormatException e) {
-			model.addAttribute("mensaje", "Número de tarjeta inválido.");
-			return "redirect:/cliente/pedido/pago/" + pedidoId;
-		}
+	    Cliente cliente = pedido.getCliente();
+	    if (cliente == null) {
+	        model.addAttribute("mensaje", "Cliente no encontrado.");
+	        return "redirect:/cliente/pedido/pago/" + pedidoId;
+	    }
 
-		clienteDAO.save(pedido.getCliente());
+	    // 🔐 ADVERTENCIA: número de tarjeta almacenado sin cifrado. En producción, cifrar.
+	    cliente.setTitularTarjeta(titularTarjeta);
+	    try {
+	        cliente.setNumeroTarjeta(Long.parseLong(numeroTarjeta));
+	    } catch (NumberFormatException e) {
+	        model.addAttribute("mensaje", "Número de tarjeta inválido.");
+	        return "redirect:/cliente/pedido/pago/" + pedidoId;
+	    }
 
-		model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
-		return "redirect:/cliente/pedido/pago/" + pedidoId;
+	    // Guarda el cliente con los datos actualizados
+	    clienteDAO.save(cliente);
+
+	    model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
+	    return "redirect:/cliente/pedido/pago/" + pedidoId;
 	}
+	
 
 	private Repartidor seleccionarRepartidorMasEficiente() {
 		return repartidorDAO.findAll().stream().filter(Objects::nonNull)
