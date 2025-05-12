@@ -86,8 +86,13 @@ public class PedidoController {
 		if (pedido == null || pedido.isPagado()) {
 			return "redirect:/error";
 		}
+		 Cliente cliente = pedido.getCliente();
+		    if (cliente == null) {
+		        return "redirect:/error";
+		}
 
 		model.addAttribute("pedido", pedido);
+	    model.addAttribute("cliente", cliente);
 		return "pago";
 	}
 
@@ -153,6 +158,29 @@ public class PedidoController {
 	    clienteDAO.save(cliente);
 
 	    model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
+	    return "redirect:/cliente/pedido/pago/" + pedidoId;
+	}
+	
+	@PostMapping("/seleccionarMetodoPago/{pedidoId}")
+	public String seleccionarMetodoPago(@PathVariable Long pedidoId, HttpSession session, Model model) {
+	    Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
+	    if (pedido == null) {
+	        return "redirect:/error";
+	    }
+
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    if (usuario == null || usuario.getId() == null) {
+	        return "redirect:/login";
+	    }
+
+	    Cliente cliente = pedido.getCliente();
+	    if (cliente == null) {
+	        model.addAttribute("mensaje", "Cliente no encontrado.");
+	        return "redirect:/cliente/pedido/pago/" + pedidoId;
+	    }
+
+	    // Aquí puedes realizar cualquier lógica adicional si es necesario
+	    model.addAttribute("mensaje", "✅ Método de pago seleccionado correctamente.");
 	    return "redirect:/cliente/pedido/pago/" + pedidoId;
 	}
 	

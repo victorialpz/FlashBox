@@ -29,7 +29,16 @@
 	            <input type="number" id="numeroTarjeta" name="numeroTarjeta" placeholder="1234 5678 9012 3456" pattern="\d{16}" maxlength="16" required>
 	        </div>
 	        <button type="submit" class="btn">💾 Guardar Método de Pago</button>
+			
 	    </form>
+		
+		<p th:if="${cliente.titularTarjeta != null}">
+		    Método de pago guardado: <strong th:text="${cliente.titularTarjeta}"></strong> - 
+		    <span th:text="${cliente.numeroTarjeta}"></span>
+		</p>
+		<form th:action="@{'/cliente/pedido/seleccionarMetodoPago/' + ${pedido.id}}" method="post">
+		    <button type="submit" class="btn">Usar Método de Pago Guardado</button>
+		</form>
 		
 		     
 	    <!-- Botón para confirmar el pago -->
