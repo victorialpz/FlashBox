@@ -145,7 +145,7 @@ public class PedidoController {
 	        return "redirect:/cliente/pedido/pago/" + pedidoId;
 	    }
 
-	    // 🔐 ADVERTENCIA: número de tarjeta almacenado sin cifrado. En producción, cifrar.
+	    
 	    cliente.setTitularTarjeta(titularTarjeta);
 	    try {
 	        cliente.setNumeroTarjeta(Long.parseLong(numeroTarjeta));
