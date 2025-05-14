@@ -26,8 +26,7 @@ public class Restaurante {
 	private CartaMenu cartaMenu;
 	@OneToOne
 	private Usuario usuario;
-	@ManyToMany
-	private List<Restaurante> favoritos;
+
 
 	private String tipo;
 	private String imagenUrl;

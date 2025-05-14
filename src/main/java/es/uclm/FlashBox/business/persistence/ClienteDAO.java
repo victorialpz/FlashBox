@@ -12,4 +12,6 @@ public interface ClienteDAO extends JpaRepository<Cliente, Long> {
 
     @Query("SELECT c FROM Cliente c JOIN FETCH c.favoritos WHERE c.usuario.id = :usuarioId")
     Optional<Cliente> findByUsuarioIdWithFavoritos(@Param("usuarioId") Long usuarioId);
+
+    Optional<Cliente> findByUsuarioId(@Param("usuarioId") Long usuarioId);
 }

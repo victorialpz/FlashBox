@@ -9,6 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.*;
+
 
 @Entity
 public class Cliente {
@@ -24,6 +27,11 @@ public class Cliente {
 	@OneToOne
 	private Usuario usuario;
 	@ManyToMany
+	@JoinTable(
+			name = "cliente_favorito",
+			joinColumns = @JoinColumn(name = "cliente_id"),
+			inverseJoinColumns = @JoinColumn(name = "restaurante_id")
+	)
 	private List<Restaurante> favoritos = new ArrayList<>();
 	private String titularTarjeta;
 	private Long numeroTarjeta;

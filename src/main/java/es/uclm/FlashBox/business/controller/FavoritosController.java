@@ -25,12 +25,19 @@ public class FavoritosController {
 	@PostMapping("/agregar")
 	public String agregarFavorito(@RequestParam Long restauranteId, HttpSession session) {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
-
+		Cliente cliente = new Cliente();
 		if (usuario == null || usuario.getCliente() == null) {
 			return "redirect:/login";
 		}
 
-		Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
+		//Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
+		if(!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()){
+			 cliente = clienteDAO.findByUsuarioId(usuario.getId()).get();
+			System.out.println("Cliente :" + cliente.getId());
+
+		}else{
+			System.out.println("Cliente no se encuentra");
+		}
 		Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
 
 		if (cliente != null && restaurante != null) {
@@ -46,14 +53,16 @@ public class FavoritosController {
 	@GetMapping
 	public String verFavoritos(HttpSession session, Model model) {
 	    Usuario usuario = (Usuario) session.getAttribute("usuario");
-
+		Cliente cliente = new Cliente();
 	    if (usuario == null || usuario.getCliente() == null) {
 	        return "redirect:/login";
 	    }
 
-	    Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
+		if(!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()) {
+			cliente = clienteDAO.findByUsuarioId(usuario.getId()).get();
+		}
 
-	    if (cliente == null || cliente.getFavoritos() == null) {
+		if (cliente == null || cliente.getFavoritos() == null) {
 	        model.addAttribute("mensaje", "No tienes restaurantes favoritos.");
 	  
 	    } else {
@@ -66,12 +75,15 @@ public class FavoritosController {
 	@PostMapping("/eliminar")
 	public String eliminarFavorito(@RequestParam Long restauranteId, HttpSession session) {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Cliente cliente = new Cliente();
 
 		if (usuario == null || usuario.getCliente() == null) {
 			return "redirect:/login";
 		}
 
-		Cliente cliente = usuario.getCliente();
+		if(!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()) {
+			cliente = clienteDAO.findByUsuarioId(usuario.getId()).get();
+		}
 
 		if (cliente.getFavoritos() != null) {
 			cliente.getFavoritos().removeIf(r -> r.getId().equals(restauranteId));
