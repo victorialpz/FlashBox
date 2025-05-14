@@ -16,7 +16,7 @@ import es.uclm.FlashBox.business.enums.Rol;
 import es.uclm.FlashBox.business.persistence.CartaMenuDAO;
 import es.uclm.FlashBox.business.persistence.ItemMenuDAO;
 import es.uclm.FlashBox.business.persistence.RestauranteDAO;
-import es.uclm.FlashBox.business.persistence.UsuarioDAO;
+//import es.uclm.FlashBox.business.persistence.UsuarioDAO;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -32,8 +32,8 @@ public class CartaMenuController {
 	@Autowired
 	private ItemMenuDAO itemMenuDAO;
 
-	@Autowired
-	private UsuarioDAO usuarioDAO;
+	//@Autowired
+	//private UsuarioDAO usuarioDAO;
 
 	private boolean esUsuarioRestauranteValido(Usuario usuario, Restaurante restaurante) {
 		return usuario != null && usuario.getRol() == Rol.RESTAURANTE
