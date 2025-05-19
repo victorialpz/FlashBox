@@ -1,14 +1,11 @@
 package es.uclm.FlashBox.business.entity;
 
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -26,7 +23,6 @@ public class Restaurante {
 	private CartaMenu cartaMenu;
 	@OneToOne
 	private Usuario usuario;
-
 
 	private String tipo;
 	private String imagenUrl;

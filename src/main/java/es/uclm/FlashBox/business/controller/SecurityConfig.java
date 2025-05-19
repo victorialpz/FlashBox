@@ -10,18 +10,9 @@ public class SecurityConfig {
 	@SuppressWarnings("removal")
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http.csrf().disable()
-	        .authorizeHttpRequests(authz -> authz
-	            .anyRequest().permitAll());
-
-	    return http.build();
-	}
-	/*@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authz -> authz.requestMatchers("/", "/registro", "/login", "/restaurantes/listar")
-				.permitAll().anyRequest().authenticated()).formLogin(form -> form.loginPage("/login").permitAll())
-				.logout(logout -> logout.permitAll());
+		http.csrf().disable().authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
 
 		return http.build();
-	}*/
+	}
+
 }

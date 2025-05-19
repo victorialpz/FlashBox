@@ -10,8 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
-//import es.uclm.FlashBox.business.persistence.*;
-
 @Entity
 public class Usuario {
 
@@ -127,6 +125,5 @@ public class Usuario {
 	public void setRepartidor(Repartidor repartidor) {
 		this.repartidor = repartidor;
 	}
-	
 
 }

@@ -1,11 +1,8 @@
 package es.uclm.FlashBox.business.entity;
 
-
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import es.uclm.FlashBox.business.enums.EstadoPedido;
-
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -17,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
 
@@ -35,6 +31,17 @@ public class Pedido {
 	private String calle;
 	private String numero;
 	private String piso;
+	private boolean pagado;
+
+	@Enumerated(EnumType.STRING)
+	private EstadoPedido estado = EstadoPedido.PENDIENTE_PAGO;
+
+	@ManyToMany
+	@JoinTable(name = "pedido_items_seleccionados", joinColumns = @JoinColumn(name = "pedido_id"), inverseJoinColumns = @JoinColumn(name = "items_seleccionados_id"))
+	private Set<ItemMenu> itemsSeleccionados = new HashSet<>();
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private ServicioEntrega servicioEntrega;
 
 	public String getCalle() {
 		return calle;
@@ -67,24 +74,6 @@ public class Pedido {
 	public void setEstado(EstadoPedido estado) {
 		this.estado = estado;
 	}
-
-	private boolean pagado;
-	
-	@Enumerated(EnumType.STRING)
-	private EstadoPedido estado = EstadoPedido.PENDIENTE_PAGO;
-
-
-	@ManyToMany
-	@JoinTable(
-		name = "pedido_items_seleccionados",
-		joinColumns = @JoinColumn(name = "pedido_id"),
-		inverseJoinColumns = @JoinColumn(name = "items_seleccionados_id")
-	)
-	private Set<ItemMenu> itemsSeleccionados = new HashSet<>();
-
-
-	@OneToOne(cascade = CascadeType.ALL)
-	private ServicioEntrega servicioEntrega;
 
 	public Long getId() {
 		return id;

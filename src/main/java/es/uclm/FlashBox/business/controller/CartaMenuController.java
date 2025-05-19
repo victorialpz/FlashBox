@@ -20,13 +20,6 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/restaurante/menu")
 public class CartaMenuController {
-	/*
-	 * @Autowired private RestauranteDAO restauranteDAO;
-	 * 
-	 * @Autowired private CartaMenuDAO cartaMenuDAO;
-	 * 
-	 * @Autowired private ItemMenuDAO itemMenuDAO;
-	 */
 
 	private final RestauranteDAO restauranteDAO;
 	private final CartaMenuDAO cartaMenuDAO;

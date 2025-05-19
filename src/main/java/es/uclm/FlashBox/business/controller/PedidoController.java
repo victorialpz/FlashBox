@@ -57,7 +57,7 @@ public class PedidoController {
 		Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
 
 		if (itemIds == null || itemIds.isEmpty() || restaurante == null) {
-			model.addAttribute("mensaje", "❌ Debes seleccionar al menos un producto.");
+			model.addAttribute("mensaje", "Debes seleccionar al menos un producto.");
 			return "redirect:/cliente/pedido/realizar/" + restauranteId;
 		}
 
@@ -107,7 +107,7 @@ public class PedidoController {
 
 		Repartidor repartidor = seleccionarRepartidorMasEficiente();
 		if (repartidor == null) {
-			model.addAttribute("mensaje", "❌ No hay repartidores disponibles.");
+			model.addAttribute("mensaje", "No hay repartidores disponibles.");
 			return "error";
 		}
 
@@ -154,10 +154,9 @@ public class PedidoController {
 	        return "redirect:/cliente/pedido/pago/" + pedidoId;
 	    }
 
-	    // Guarda el cliente con los datos actualizados
 	    clienteDAO.save(cliente);
 
-	    model.addAttribute("mensaje", "✅ Método de pago guardado correctamente.");
+	    model.addAttribute("mensaje", "Método de pago guardado correctamente.");
 	    return "redirect:/cliente/pedido/pago/" + pedidoId;
 	}
 	
@@ -179,8 +178,8 @@ public class PedidoController {
 	        return "redirect:/cliente/pedido/pago/" + pedidoId;
 	    }
 
-	    // Aquí puedes realizar cualquier lógica adicional si es necesario
-	    model.addAttribute("mensaje", "✅ Método de pago seleccionado correctamente.");
+	 
+	    model.addAttribute("mensaje", "Método de pago seleccionado correctamente.");
 	    return "redirect:/cliente/pedido/pago/" + pedidoId;
 	}
 	

@@ -30,12 +30,11 @@ public class FavoritosController {
 			return "redirect:/login";
 		}
 
-		//Cliente cliente = clienteDAO.findByUsuarioIdWithFavoritos(usuario.getId()).orElse(null);
-		if(!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()){
-			 cliente = clienteDAO.findByUsuarioId(usuario.getId()).get();
+		if (!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()) {
+			cliente = clienteDAO.findByUsuarioId(usuario.getId()).get();
 			System.out.println("Cliente :" + cliente.getId());
 
-		}else{
+		} else {
 			System.out.println("Cliente no se encuentra");
 		}
 		Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
@@ -52,24 +51,24 @@ public class FavoritosController {
 
 	@GetMapping
 	public String verFavoritos(HttpSession session, Model model) {
-	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		Cliente cliente = new Cliente();
-	    if (usuario == null || usuario.getCliente() == null) {
-	        return "redirect:/login";
-	    }
+		if (usuario == null || usuario.getCliente() == null) {
+			return "redirect:/login";
+		}
 
-		if(!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()) {
+		if (!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()) {
 			cliente = clienteDAO.findByUsuarioId(usuario.getId()).get();
 		}
 
 		if (cliente == null || cliente.getFavoritos() == null) {
-	        model.addAttribute("mensaje", "No tienes restaurantes favoritos.");
-	  
-	    } else {
-	        model.addAttribute("favoritos", cliente.getFavoritos());
-	    }
+			model.addAttribute("mensaje", "No tienes restaurantes favoritos.");
 
-	    return "favoritos";
+		} else {
+			model.addAttribute("favoritos", cliente.getFavoritos());
+		}
+
+		return "favoritos";
 	}
 
 	@PostMapping("/eliminar")
@@ -81,7 +80,7 @@ public class FavoritosController {
 			return "redirect:/login";
 		}
 
-		if(!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()) {
+		if (!clienteDAO.findByUsuarioId(usuario.getId()).isEmpty()) {
 			cliente = clienteDAO.findByUsuarioId(usuario.getId()).get();
 		}
 
