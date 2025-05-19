@@ -2,7 +2,6 @@ package es.uclm.FlashBox.business.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +15,28 @@ import es.uclm.FlashBox.business.enums.Rol;
 import es.uclm.FlashBox.business.persistence.CartaMenuDAO;
 import es.uclm.FlashBox.business.persistence.ItemMenuDAO;
 import es.uclm.FlashBox.business.persistence.RestauranteDAO;
-//import es.uclm.FlashBox.business.persistence.UsuarioDAO;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/restaurante/menu")
 public class CartaMenuController {
+	/*
+	 * @Autowired private RestauranteDAO restauranteDAO;
+	 * 
+	 * @Autowired private CartaMenuDAO cartaMenuDAO;
+	 * 
+	 * @Autowired private ItemMenuDAO itemMenuDAO;
+	 */
 
-	@Autowired
-	private RestauranteDAO restauranteDAO;
+	private final RestauranteDAO restauranteDAO;
+	private final CartaMenuDAO cartaMenuDAO;
+	private final ItemMenuDAO itemMenuDAO;
 
-	@Autowired
-	private CartaMenuDAO cartaMenuDAO;
-
-	@Autowired
-	private ItemMenuDAO itemMenuDAO;
-
-	//@Autowired
-	//private UsuarioDAO usuarioDAO;
+	public CartaMenuController(RestauranteDAO restauranteDAO, CartaMenuDAO cartaMenuDAO, ItemMenuDAO itemMenuDAO) {
+		this.restauranteDAO = restauranteDAO;
+		this.cartaMenuDAO = cartaMenuDAO;
+		this.itemMenuDAO = itemMenuDAO;
+	}
 
 	private boolean esUsuarioRestauranteValido(Usuario usuario, Restaurante restaurante) {
 		return usuario != null && usuario.getRol() == Rol.RESTAURANTE
